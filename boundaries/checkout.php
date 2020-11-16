@@ -213,7 +213,7 @@
                                 <div class="checkout__order__products">Articles <span>Prix</span></div>
                                 <ul>
                                     <?php if(isSet($contenuPanierTotal)){echo $contenuPanierTotal;
-                                }else echo'0';?>
+                                };?>
 <!--                                    <li>Vegetable’s Package <span>$75.99</span></li>
                                     <li>Fresh Vegetable <span>$151.99</span></li>
                                     <li>Organic Bananas <span>$53.99</span></li>-->

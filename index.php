@@ -524,8 +524,8 @@ $ommePanier = filter_input(INPUT_COOKIE, "SommePanier");
     if (isSet($recordProduit) != NULL) {
         
         // Initialisation du Cookie Panier
-        $ommePanier = filter_input(INPUT_COOKIE, "SommePanier");
-        if ($sommePanier == null) {
+        
+        if ($sommePanier === NULL) {
             // Panier inexistant
             $sommePanier = $recordProduit->getPrix();
     
@@ -550,7 +550,7 @@ $ommePanier = filter_input(INPUT_COOKIE, "SommePanier");
 $articleASupprimer= filter_input(INPUT_GET, "id_produit_a_enlever");
 
 if($articleASupprimer!==NULL){
-        $tCookie=explode('#',$_COOKIE["Panier"]);          
+        $tCookie=explode('#',filter_input(INPUT_COOKIE, "Panier"));          
         unset($tCookie[array_search($articleASupprimer, $tCookie)]);
         $cart= implode("#", $tCookie);
         setCookie("Panier", $cart, time() + 60 * 60 * 24 * 14);
