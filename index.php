@@ -132,17 +132,13 @@ if (isSet($IHM) && ($IHM === "accueil")) {
 //
 // GESTION DE L'AUTHENTIFICATION
 //
-
-// CONTROLE A METTRE EN PLACE SUR concordance email/ mdp
-
 // Récupération des données saisies par l'utilisateur depuis la page de connexion
-$emailClient = filter_input(INPUT_POST, "emailConnexion");
-$passwordClient = filter_input(INPUT_POST, "pwdConnexion");
-$btnAuthentification = filter_input(INPUT_POST, "btnValiderAuthentification");
+$emailClient = filter_input(INPUT_GET, "emailConnexion");
+$passwordClient = filter_input(INPUT_GET, "pwdConnexion");
+$btnAuthentification = filter_input(INPUT_GET, "btnValiderAuthentification");
 
 // Si les champs Email et password ont été saisis
-if ($btnAuthentification){   
-
+if($btnAuthentification!=NULL){
 if ($emailClient != null && $passwordClient != null) {
     require_once 'entities/Client.php';
     require_once 'daos/ClientDAO.php';
@@ -165,8 +161,9 @@ if ($emailClient != null && $passwordClient != null) {
         $dao = new ClientDAO($pdo);
         // Affectation de la méthode SelectOneByEmailAndPwd afin de valider si le client a un compte
         $objet = $dao->selectOneByEmailAndPwd($pdo, $client);
-        if ($objet == FALSE) {
-            $errorMessage = "-1";
+        if ($objet === null) {
+            $errorMessageAuthentification = "Identifiants erronés";
+            $IHM="connexion";
         } else {
             $message = "1";
 
@@ -199,6 +196,67 @@ if ($emailClient != null && $passwordClient != null) {
             $_SESSION['naissance'] = $dateNaissanceSession;
             $_SESSION['newsletter'] = $newsLetterSession;
             $_SESSION['idVille'] = $idVSession;
+            
+            //
+// REMPLISSAGE DES CHAMPS VOS INFORMATIONS SI CLIENT AUTHENTIFIE
+//
+
+    if ($emailClient != null && $passwordClient != null) {
+        try {
+            require_once 'entities/Ville.php';
+            require_once 'daos/VilleDAO.php';
+            require_once 'daos/Database.php';
+
+            $connexion = new Connexion();
+            // Selection du fichier .ini pour selection du serveur
+            $pdo = $connexion->connect("conf/bd.ini");
+            $dao = new VilleDAO($pdo);
+            $villeClientConnecte = new Ville();
+            $villeClientConnecte->setIdVille($idVSession);
+            $villeClient = $dao->selectOne($pdo, $villeClientConnecte);
+            $nomVilleClientConnecte = $villeClient->getVille();
+            $cpVilleClientConnecte = $villeClient->getCp();
+            $idPaysClientConnecte = $villeClient->getIdPays();
+            $_SESSION['ville'] = $nomVilleClientConnecte;
+            $_SESSION['cp'] = $cpVilleClientConnecte;
+            $_SESSION['id_Pays'] = $idPaysClientConnecte;
+
+            if ($objet == FALSE) {
+                $errorMessage = "-1";
+            } else {
+                $message = "";
+            }
+        } catch (Exception $exc) {
+            //echo $exc->getTraceAsString();
+            $errorMessage = "-1";
+        }
+
+        try {
+            require_once 'entities/Pays.php';
+            require_once 'daos/PaysDAO.php';
+            require_once 'daos/Database.php';
+
+            $daoPays = new PaysDAO($pdo);
+            $paysRecherche = new Pays();
+            // récupérer l' ID Pays de la ville du client    
+            $paysRecherche->setIdPays($idPaysClientConnecte);
+            $paysClientConnecte = $daoPays->selectOne($pdo, $paysRecherche);
+            $paysClientSession = $paysClientConnecte->getPays();
+            //$idPaysClientConnecte= $paysClientConnecte->getidPays();
+            //$_SESSION['id_pays'] = $idPaysClientSession; 
+            $_SESSION['pays'] = $paysClientSession;
+            $_SESSION['id_Pays'] = $paysRecherche;
+
+            if ($objet == FALSE) {
+                $errorMessage = "-1";
+            } else {
+                $message;
+            }
+        } catch (Exception $exc) {
+            //echo $exc->getTraceAsString();
+            $errorMessage = "-1";
+        }
+    }
         }
         // récupération des exceptions et affectation à la variable $exc
     } catch (Exception $exc) {
@@ -208,9 +266,12 @@ if ($emailClient != null && $passwordClient != null) {
 
     // si problème de connexion à la BD, affectation de la valeur '-1' à la variable $errorMessage   
 } else {
-    $errorMessageAuthentification = "Tous les champs sont requis!";
+    $errorMessageAuthentification = "Tous les champs sont obligatoires";
+   $IHM="connexion";
 }
+
 };
+
 
 //
 // GESTION DE L'INSCRIPTION
@@ -338,66 +399,7 @@ if (((isset($btValiderInscription)) != null) && ((isset($inscrptionValidation)) 
 }
 
 
-//
-// REMPLISSAGE DES CHAMPS VOS INFORMATIONS SI CLIENT AUTHENTIFIE
-//
 
-    if ($emailClient != null && $passwordClient != null) {
-        try {
-            require_once 'entities/Ville.php';
-            require_once 'daos/VilleDAO.php';
-            require_once 'daos/Database.php';
-
-            $connexion = new Connexion();
-            // Selection du fichier .ini pour selection du serveur
-            $pdo = $connexion->connect("conf/bd.ini");
-            $dao = new VilleDAO($pdo);
-            $villeClientConnecte = new Ville();
-            $villeClientConnecte->setIdVille($idVSession);
-            $villeClient = $dao->selectOne($pdo, $villeClientConnecte);
-            $nomVilleClientConnecte = $villeClient->getVille();
-            $cpVilleClientConnecte = $villeClient->getCp();
-            $idPaysClientConnecte = $villeClient->getIdPays();
-            $_SESSION['ville'] = $nomVilleClientConnecte;
-            $_SESSION['cp'] = $cpVilleClientConnecte;
-            $_SESSION['id_Pays'] = $idPaysClientConnecte;
-
-            if ($objet == FALSE) {
-                $errorMessage = "-1";
-            } else {
-                $message = "";
-            }
-        } catch (Exception $exc) {
-            //echo $exc->getTraceAsString();
-            $errorMessage = "-1";
-        }
-
-        try {
-            require_once 'entities/Pays.php';
-            require_once 'daos/PaysDAO.php';
-            require_once 'daos/Database.php';
-
-            $daoPays = new PaysDAO($pdo);
-            $paysRecherche = new Pays();
-            // récupérer l' ID Pays de la ville du client    
-            $paysRecherche->setIdPays($idPaysClientConnecte);
-            $paysClientConnecte = $daoPays->selectOne($pdo, $paysRecherche);
-            $paysClientSession = $paysClientConnecte->getPays();
-            //$idPaysClientConnecte= $paysClientConnecte->getidPays();
-            //$_SESSION['id_pays'] = $idPaysClientSession; 
-            $_SESSION['pays'] = $paysClientSession;
-            $_SESSION['id_Pays'] = $paysRecherche;
-
-            if ($objet == FALSE) {
-                $errorMessage = "-1";
-            } else {
-                $message;
-            }
-        } catch (Exception $exc) {
-            //echo $exc->getTraceAsString();
-            $errorMessage = "-1";
-        }
-    }
 
 //
 // GESTION DE L'INSCRIPTION A LA NEWSLETTER
@@ -459,14 +461,15 @@ $cart = filter_input(INPUT_COOKIE, "Panier");
 // initialisation de la variable récupérant le cookie Somme Panier
 $ommePanier = filter_input(INPUT_COOKIE, "SommePanier");
 
-
+// Si un article est positionné dans le panier
+// récupération de l'ID du produit séléctionné
+if(isSet($idProduit)!==NULL){
     // appel des DAO/ DTO
     require_once 'entities/Photo.php';
     require_once 'daos/PhotoDAO.php';
     require_once 'entities/Produit.php';
     require_once 'daos/ProduitDAO.php';    
-    // Si un article est positionné dans le panier
-    // récupération de l'ID du produit séléctionné
+    // Récupération du clic caddie
     if(isSet($idProduit)){
     //Si l'id a été envoyé
     // Initialisation du Cookie Panier
@@ -479,7 +482,7 @@ $ommePanier = filter_input(INPUT_COOKIE, "SommePanier");
         $cart .= "#" . $idProduit;
     }
     // 2 semaines = 14 jours
-    setCookie("Panier", $cart, time() + 60 * 60 * 24 * 14);        
+    setCookie("Panier", $cart, time() + 60 * 60 * 24 * 14);
   
     };
     
@@ -524,8 +527,8 @@ $ommePanier = filter_input(INPUT_COOKIE, "SommePanier");
     if (isSet($recordProduit) != NULL) {
         
         // Initialisation du Cookie Panier
-        
-        if ($sommePanier === NULL) {
+        $ommePanier = filter_input(INPUT_COOKIE, "SommePanier");
+        if ($sommePanier == null) {
             // Panier inexistant
             $sommePanier = $recordProduit->getPrix();
     
@@ -543,14 +546,14 @@ $ommePanier = filter_input(INPUT_COOKIE, "SommePanier");
   
 };
 
-
+};
 
 // SUPPRESSION D'UN ARTICLE DU PANIER
 
 $articleASupprimer= filter_input(INPUT_GET, "id_produit_a_enlever");
 
 if($articleASupprimer!==NULL){
-        $tCookie=explode('#',filter_input(INPUT_COOKIE, "Panier"));          
+        $tCookie=explode('#',$_COOKIE["Panier"]);          
         unset($tCookie[array_search($articleASupprimer, $tCookie)]);
         $cart= implode("#", $tCookie);
         setCookie("Panier", $cart, time() + 60 * 60 * 24 * 14);
