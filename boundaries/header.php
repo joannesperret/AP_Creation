@@ -1,9 +1,9 @@
 <?php
-
 /* 
  * header.php
  */
 ?>
+
 
 <?php 
 // Lancement de la session si elle n'est pas déjà démarrée
@@ -98,13 +98,18 @@ if((session_id()!== "") && ($action === "deconnexion")){
                                 <?php 
                                 
                                 //if(isSet($_COOKIE["Panier"])){$tCookie=explode('#',$_COOKIE["Panier"]);echo count($tCookie);}else echo'0';
-                                if(filter_input(INPUT_COOKIE, "Panier")!==NULL){$tCookie=explode('#',$_COOKIE["Panier"]);echo count($tCookie);}else echo'0';   
-                                    ?>                                    
+                                //if(filter_input(INPUT_COOKIE, "Panier")!==NULL){$tCookie=explode('#',$_COOKIE["Panier"]);echo count($tCookie);}else echo'0';   
+                                if((($_SESSION["Panier"])===0||$_SESSION["Panier"])===""){echo'0';}
+                                else if(isset($_SESSION["Panier"])){$tCookie=explode('#',$_SESSION["Panier"]);echo count($tCookie);}
+                                else echo '0';
+                            
+                                
+                                ?>                                    
                                     </span></a></li>
                         </ul>
                         <div class="header__cart__price">Total: <span><?php 
-                        if(filter_input(INPUT_COOKIE, "SommePanier")!==NULL){echo $_COOKIE["SommePanier"];}else echo'0';
-                       
+                       // if(filter_input(INPUT_COOKIE, "SommePanier")!==NULL){echo $_COOKIE["SommePanier"];}else echo'0';
+                        echo $_SESSION['SommePanier'];
                         
                         ?> €
                             
