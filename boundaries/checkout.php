@@ -219,8 +219,8 @@
                                     <li>Organic Bananas <span>$53.99</span></li>-->
                                 </ul>
 <!--                                <div class="checkout__order__subtotal">Subtotal <span>$750.99</span></div>-->
-                                <div class="checkout__order__total">Total <span><?php if(isSet($_COOKIE["SommePanier"]))
-                            {echo $_COOKIE["SommePanier"];
+                                <div class="checkout__order__total">Total <span><?php if(isSet($_SESSION["SommePanier"]))
+                            {echo $_SESSION["SommePanier"];
                                 }else echo'0';?> €</span></div>                              
                                 <div class="checkout__input__checkbox">
                                     <label for="acc-or">

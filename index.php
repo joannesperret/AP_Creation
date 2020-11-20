@@ -1,5 +1,8 @@
 <?php
-
+session_start();
+if(isset($_SESSION['Panier'])){}else{$_SESSION['Panier']=0;}
+if(isset($_SESSION['SommePanier'])){}else{$_SESSION['SommePanier']=0;}
+//echo $_SESSION['Panier'];
 // affichage durant les tests:
 $idProduit = filter_input(INPUT_GET, "id_produit");
 //if(isset($idProduit)){echo 'id_produit'.$idProduit.'<br>';};
@@ -15,8 +18,13 @@ $idProduit = filter_input(INPUT_GET, "id_produit");
  * index.php
  */
 
+// Récupération des valeurs du Cookie Panier avant à l'arrivée sur le site
+// pour récupérer le précedant panier.
 
- 
+
+        //$_SESSION['Panier'] = filter_input(INPUT_COOKIE, "Panier");
+        //$_SESSION['SommePanier'] = filter_input(INPUT_COOKIE, "SommePanier");
+
 //
 // Gestion des IHM
 // 
@@ -168,7 +176,7 @@ if ($emailClient != null && $passwordClient != null) {
             $message = "1";
 
             // Ouverture d'une session si selectOneByEmailAndPwd OK.
-            session_start();
+            //session_start();
 
             // récupération des données client contenues dans la BD
             $idCSession = $objet->getIdClient();
@@ -456,10 +464,11 @@ if (((isset($btnNewsletter)) != null)) {
 
 // initialisation de la variable récupérant le cookie Panier
 
-$cart = filter_input(INPUT_COOKIE, "Panier");
+
+//$cart = filter_input(INPUT_COOKIE, "Panier");
 
 // initialisation de la variable récupérant le cookie Somme Panier
-$ommePanier = filter_input(INPUT_COOKIE, "SommePanier");
+//$ommePanier = filter_input(INPUT_COOKIE, "SommePanier");
 
 // Si un article est positionné dans le panier
 // récupération de l'ID du produit séléctionné
@@ -472,8 +481,8 @@ if(isSet($idProduit)!==NULL){
     // Récupération du clic caddie
     if(isSet($idProduit)){
     //Si l'id a été envoyé
-    // Initialisation du Cookie Panier
-    $cart = filter_input(INPUT_COOKIE, "Panier");
+    // Initialisation de la SESSION Panier
+    $cart = $_SESSION["Panier"];
     if ($cart == null) {
         // Panier inexistant
         $cart = $idProduit;
@@ -482,15 +491,18 @@ if(isSet($idProduit)!==NULL){
         $cart .= "#" . $idProduit;
     }
     // 2 semaines = 14 jours
-    setCookie("Panier", $cart, time() + 60 * 60 * 24 * 14);
-  
+    //setCookie('Panier', $cart, time() + 60 * 60 * 24 * 14);
+    $_SESSION['Panier']=$cart;
     };
     
     // si le Cookie Panier est créé et contient un article
+    // si la session Panier est créée et contient un article
     // mise à jour de l'affichage panier+ somme
-    if(filter_input(INPUT_COOKIE, "Panier")!==NULL){
+    //if(filter_input(INPUT_COOKIE, "Panier")!==NULL){
+    if($_SESSION['Panier']!==NULL && $_SESSION['Panier']!==0 && $_SESSION['Panier']!==""){
     // le cookie est transformé en tableau
-    $tCookie=explode('#',$_COOKIE["Panier"]);
+    //$tCookie=explode('#',$_COOKIE["Panier"]);
+    $tCookie=explode('#',$_SESSION["Panier"]);
     // Initialisation de la variable d'affichage du panier
     $contenuPanier="";
     $contenuPanierTotal="";
@@ -524,25 +536,31 @@ if(isSet($idProduit)!==NULL){
         $contenuPanierTotal.='</li>';
           // création du cookie SommePanier
         
-    if (isSet($recordProduit) != NULL) {
+//        $sommePanier=$recordProduit->getPrix();
+//        $_SESSION["SommePanier"]+=$sommePanier;
         
+   if (isSet($recordProduit)!=NULL) {
+        //$sommePanier=0;
         // Initialisation du Cookie Panier
-        $ommePanier = filter_input(INPUT_COOKIE, "SommePanier");
-        if ($sommePanier == null) {
+        //$ommePanier = filter_input(INPUT_COOKIE, "SommePanier");
+    //$sommePanier = $_SESSION["SommePanier"];
+        if ($_SESSION['Panier'] === 0) {
             // Panier inexistant
             $sommePanier = $recordProduit->getPrix();
     
         } else {
           
             $sommePanier+= $recordProduit->getPrix();
-         
+            $_SESSION["SommePanier"]=$sommePanier;
         }
 
-        setcookie("SommePanier", $sommePanier,time() + 60 * 60 * 24 * 14);
+        //setcookie("SommePanier", $sommePanier,time() + 60 * 60 * 24 * 14);
+       // $_SESSION["SommePanier"]=$sommePanier;
+       
     }
 
                 
-    }
+   }
   
 };
 
@@ -553,18 +571,22 @@ if(isSet($idProduit)!==NULL){
 $articleASupprimer= filter_input(INPUT_GET, "id_produit_a_enlever");
 
 if($articleASupprimer!==NULL){
-        $tCookie=explode('#',$_COOKIE["Panier"]);          
+        $tCookie=explode('#',$_SESSION["Panier"]); 
+        $_SESSION['Panier']=explode('#',$_SESSION["Panier"]);
         unset($tCookie[array_search($articleASupprimer, $tCookie)]);
         $cart= implode("#", $tCookie);
-        setCookie("Panier", $cart, time() + 60 * 60 * 24 * 14);
-        
+        $_SESSION['Panier']=$cart;
 };
-
-if(filter_input(INPUT_COOKIE, "Panier")===NULL){
-  setcookie("SommePanier", "",time() + 60 * 60 * 24 * 14);
-};
-
-
+if($_SESSION['Panier']==0){$_SESSION['SommePanier']=0;};
+if($_SESSION['Panier']==""){$_SESSION['Panier']=0;};
+//if(filter_input(INPUT_COOKIE, "Panier")===NULL){
+  //setcookie("SommePanier", "",time() + 60 * 60 * 24 * 14);
+  //$_SESSION['SommePanier']=0;
+//};
+//Affichage du panier durant les tests
+//var_dump ($_SESSION['Panier']);
+//var_dump($_SESSION['SommePanier']);
+//echo "Somme Panier: ".$sommePanier;
 // Appel de la page correspondant à l'action désirée
 include 'boundaries/' . $IHM . '.php';
 

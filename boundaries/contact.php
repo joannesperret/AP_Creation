@@ -60,7 +60,7 @@
                     <div class="breadcrumb__text">
                         <h2>Contactez- nous</h2>
                         <div class="breadcrumb__option">
-                            <a href="../index.php">Accueil</a>
+                            <a href="index.php?action=accueil#catalogue">Accueil</a>
                             <span>Contactez- nous</span>
                         </div>
                     </div>

@@ -99,8 +99,9 @@ if((session_id()!== "") && ($action === "deconnexion")){
                                 
                                 //if(isSet($_COOKIE["Panier"])){$tCookie=explode('#',$_COOKIE["Panier"]);echo count($tCookie);}else echo'0';
                                 //if(filter_input(INPUT_COOKIE, "Panier")!==NULL){$tCookie=explode('#',$_COOKIE["Panier"]);echo count($tCookie);}else echo'0';   
-                                if((($_SESSION["Panier"])===0||$_SESSION["Panier"])===""){echo'0';}
-                                else if(isset($_SESSION["Panier"])){$tCookie=explode('#',$_SESSION["Panier"]);echo count($tCookie);}
+                                //if(($_SESSION["Panier"])===""){echo'0';}
+                                if(($_SESSION["Panier"]!="")||($_SESSION["Panier"]!=0)){$tCookie=explode('#',$_SESSION["Panier"]);echo count($tCookie);}
+                                //else if(($_SESSION["Panier"])===""){echo'0';}
                                 else echo '0';
                             
                                 

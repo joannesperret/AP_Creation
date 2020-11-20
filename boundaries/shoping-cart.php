@@ -126,8 +126,8 @@
 <!--                            <li>Subtotal <span>$454.98</span></li>-->
                         </ul>
                         <div class="checkout__order__total">Total <span><?php
-                            if (isSet($_COOKIE["SommePanier"])) {
-                                echo $_COOKIE["SommePanier"];
+                            if (isSet($_SESSION["SommePanier"])) {
+                                echo $_SESSION["SommePanier"];
                             } else
                                 echo'0';
                             ?> €</span></div> 

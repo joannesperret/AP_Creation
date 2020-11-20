@@ -5,9 +5,9 @@
         <group>
             <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/connexion.php</file>
             <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/contact.php</file>
-            <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/header.php</file>
             <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/checkout.php</file>
             <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/shoping-cart.php</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/header.php</file>
             <file>file:/C:/xampp/htdocs/Api_Creation/index.php</file>
             <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/recherche.php</file>
             <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/menu_mobile.php</file>
