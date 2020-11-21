@@ -15,7 +15,7 @@
                         </div>
                         <ul>
                             <li>Addresse: Wattrelos</li>
-                            <li>Phone: +33 6 52 81 07 98</li>
+                            <li>Téléphone: 06 52 81 07 98</li>
                             <li>Email: anneperret01@hotmail.fr</li>
                         </ul>
                     </div>

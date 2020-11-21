@@ -20,12 +20,12 @@ if ((session_id() !== "") && ($action === "deconnexion")) {
         <div class="humberger__menu__cart">
             <ul>
 <!--                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>-->
-                <li><a href="index.php?action=shoping-cart#panier"><i class="fa fa-shopping-bag"></i> <span><?php if(isSet($_COOKIE["Panier"])){$tCookie=explode('#',$_COOKIE["Panier"]);
-                                    echo count($tCookie);
-                                }else echo'0';?></span></a></li>
+                <li><a href="index.php?action=shoping-cart#panier"><i class="fa fa-shopping-bag"></i> <span><?php if(($_SESSION["Panier"]!="")||($_SESSION["Panier"]!=0)){$tCookie=explode('#',$_SESSION["Panier"]);echo count($tCookie);}
+                                //else if(($_SESSION["Panier"])===""){echo'0';}
+                                else echo '0';?></span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span><?php if(isSet($_COOKIE["SommePanier"]))
-                            {echo $_COOKIE["SommePanier"];
+            <div class="header__cart__price">item: <span><?php if(isSet($_SESSION["SommePanier"]))
+                            {echo $_SESSION["SommePanier"];
                                 }else echo'0';?> €</span></div>
         </div>
         <div class="humberger__menu__widget">

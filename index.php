@@ -18,6 +18,18 @@ $idProduit = filter_input(INPUT_GET, "id_produit");
  * index.php
  */
 
+// SUPPRESSION D'UN ARTICLE DU PANIER
+
+$articleASupprimer= filter_input(INPUT_GET, "id_produit_a_enlever");
+
+if($articleASupprimer!==NULL){
+        $tCookie=explode('#',$_SESSION["Panier"]); 
+        $_SESSION['Panier']=explode('#',$_SESSION["Panier"]);
+        unset($tCookie[array_search($articleASupprimer, $tCookie)]);
+        $cart= implode("#", $tCookie);
+        $_SESSION['Panier']=$cart;
+};
+
 // Récupération des valeurs du Cookie Panier avant à l'arrivée sur le site
 // pour récupérer le précedant panier.
 
@@ -126,7 +138,7 @@ if (isSet($IHM) && ($IHM === "accueil")) {
             $produitO = $daoProduit->selectOne($pdo, $produit);
             $contenu .= "<div class='col-lg-3 col-md-4 col-sm-6 mix " . strtolower($value->getCategorie()) . "'><div class='featured__item'><div class='featured__item__pic set-bg' data-setbg='img/product/" . $valueP->getPhotoPrincipale() . "'style='background-image: url(../img/product/" . $valueP->getPhotoPrincipale();
             $contenu .= "')</div>";
-            $contenu .= "<ul class='featured__item__pic__hover'><li><a href='#'><i class='fa fa-heart'></i></a></li><li><a href='#'><i class='fa fa-eye'></i></a></li><li><a href='index.php?id_produit=";
+            $contenu .= "<ul class='featured__item__pic__hover'><li><a href='#'><i class='fa fa-eye'></i></a></li><li><a href='index.php?id_produit=";
             $contenu .=$produitO->getIdProduit();            
             $contenu .="'><i class='fa fa-shopping-cart'></i></a></li></ul></div></div>";           
             $contenu .= "<div class='featured__item__text'style=padding:0px!important;margin-top:-40px!important;margin-bottom:40px!important>
@@ -566,17 +578,7 @@ if(isSet($idProduit)!==NULL){
 
 };
 
-// SUPPRESSION D'UN ARTICLE DU PANIER
 
-$articleASupprimer= filter_input(INPUT_GET, "id_produit_a_enlever");
-
-if($articleASupprimer!==NULL){
-        $tCookie=explode('#',$_SESSION["Panier"]); 
-        $_SESSION['Panier']=explode('#',$_SESSION["Panier"]);
-        unset($tCookie[array_search($articleASupprimer, $tCookie)]);
-        $cart= implode("#", $tCookie);
-        $_SESSION['Panier']=$cart;
-};
 if($_SESSION['Panier']==0){$_SESSION['SommePanier']=0;};
 if($_SESSION['Panier']==""){$_SESSION['Panier']=0;};
 //if(filter_input(INPUT_COOKIE, "Panier")===NULL){
