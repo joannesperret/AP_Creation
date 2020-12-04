@@ -91,7 +91,8 @@
                                 src="img/product/<?php if (isset($consultationPhoto2)){echo $consultationPhoto2;}?>" alt="">
                             <img data-imgbigurl="img/product/<?php if (isset($consultationPhoto3)){echo $consultationPhoto3;}?>"
                                 src="img/product/<?php if (isset($consultationPhoto3)){echo $consultationPhoto3;}?>" alt="">
-                            <img src="img/product/<?php if (isset($consultationPhoto4)){echo $consultationPhoto4;}?>" alt="">                          
+                            <img data-imgbigurl="img/product/<?php if (isset($consultationPhoto4)){echo $consultationPhoto4;}?>"
+                                src="img/product/<?php if (isset($consultationPhoto4)){echo $consultationPhoto4;}?>" alt="">                          
                         </div>
                     </div>
                 </div>
