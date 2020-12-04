@@ -54,16 +54,15 @@
     <?php include "recherche.php"?>
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb_ap.jpg">
+    <section id="produit" class="breadcrumb-section set-bg" data-setbg="img/breadcrumb_ap.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Vegetable’s Package</h2>
+                        <h2>Fiche Produit</h2>
                         <div class="breadcrumb__option">
-                            <a href="index.php">Home</a>
-                            <a href="index.php">Vegetables</a>
-                            <span>Vegetable’s Package</span>
+                            <a href="index.php?action=accueil">Accueil</a>  
+                            <span>Produit</span>
                         </div>
                     </div>
                 </div>
@@ -73,42 +72,34 @@
     <!-- Breadcrumb Section End -->
 
     <!-- Product Details Section Begin -->
-    <section class="product-details spad">
+    <section class="product-details spad" id="product-details">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
-                                src="img/product/details/product-details-1.jpg" alt="">
+                                src='img/product/<?php if (isset($consultationPhotoPrincipale)){echo $consultationPhotoPrincipale;}?>' alt="">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
-                            <img data-imgbigurl="img/product/details/product-details-2.jpg"
-                                src="img/product/details/thumb-1.jpg" alt="">
-                            <img data-imgbigurl="img/product/details/product-details-3.jpg"
-                                src="img/product/details/thumb-2.jpg" alt="">
-                            <img data-imgbigurl="img/product/details/product-details-5.jpg"
-                                src="img/product/details/thumb-3.jpg" alt="">
-                            <img data-imgbigurl="img/product/details/product-details-4.jpg"
-                                src="img/product/details/thumb-4.jpg" alt="">
+                            <!-- Code PHP à corriger-->
+                            <?php if (isset($consultationPhoto2)){echo "<img data-imgbigurl='img/product/$consultationPhoto2'src='img/product/$consultationPhoto2'alt=''";}?>     
+                            <?php if (isset($consultationPhoto3)){echo "<img data-imgbigurl='img/product/$consultationPhoto3'src='img/product/$consultationPhoto3'alt=''";}?>  
+                            <?php if (isset($consultationPhoto4)){echo "<img data-imgbigurl='img/product/$consultationPhoto4'src='img/product/$consultationPhoto4'alt=''";}?>  
+                            
+                            <img data-imgbigurl="img/product/<?php if (isset($consultationPhoto2)){echo $consultationPhoto2;}?>"
+                                src="img/product/<?php if (isset($consultationPhoto2)){echo $consultationPhoto2;}?>" alt="">
+                            <img data-imgbigurl="img/product/<?php if (isset($consultationPhoto3)){echo $consultationPhoto3;}?>"
+                                src="img/product/<?php if (isset($consultationPhoto3)){echo $consultationPhoto3;}?>" alt="">
+                            <img src="img/product/<?php if (isset($consultationPhoto4)){echo $consultationPhoto4;}?>" alt="">                          
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h3>Vetgetable’s Package</h3>
-                        <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <span>(18 reviews)</span>
-                        </div>
-                        <div class="product__details__price">$50.00</div>
-                        <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
-                            vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
-                            quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
+                        <h3><?php if (isset($designationProduitVisualise)){echo $designationProduitVisualise;}?></h3>
+                        <div class="product__details__price"><?php if (isset($prixProduitVisualise)){echo "€ ".$prixProduitVisualise;}?></div>
+                        <p><?php if (isset($descriptionProduitVisualise)){echo $descriptionProduitVisualise;}?></p>
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
@@ -120,8 +111,8 @@
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
-                            <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
-                            <li><b>Weight</b> <span>0.5 kg</span></li>
+                            <li><b>Shipping</b> <span>01 day shipping. <samp>Livraison gratuite ce jour!</samp></span></li>
+                           
                             <li><b>Share on</b>
                                 <div class="share">
                                     <a href="#"><i class="fa fa-facebook"></i></a>

@@ -1,22 +1,44 @@
 <?php
-session_start();
-if(isset($_SESSION['Panier'])){}else{$_SESSION['Panier']=0;}
-if(isset($_SESSION['SommePanier'])){}else{$_SESSION['SommePanier']=0;}
-//echo $_SESSION['Panier'];
-// affichage durant les tests:
-$idProduit = filter_input(INPUT_GET, "id_produit");
-//if(isset($idProduit)){echo 'id_produit'.$idProduit.'<br>';};
-//if(filter_input(INPUT_GET,"id_produit")!=NULL){echo"ID-PRODUIT".$idProduit;};
-//echo "Panier<br>";
-//if(isset($_COOKIE["Panier"])){var_dump($_COOKIE["Panier"]);echo"<br";};
-//echo "Somme Panier<br>";
-//if(isset($_COOKIE["SommePanier"])){var_dump($_COOKIE["SommePanier"]);};
-//echo"Contenu Panier".$contenuPanier;
-//echo"Contenu Panier Total".$contenuPanierTotal;
 
 /*
  * index.php
  */
+
+// Démarrage de la session au lancement du script afin de gérer
+// les variables de session 'Panier' et 'SommePanier'.
+
+session_start();
+
+// Si les variables de session ne sont pas créées, initialisation des valeurs à 0
+if(isset($_SESSION['Panier'])){}else{$_SESSION['Panier']=0;}
+if(isset($_SESSION['SommePanier'])){}else{$_SESSION['SommePanier']=0;}
+
+// initialisation de la variable id_produit si postée
+$idProduit = filter_input(INPUT_GET, "id_produit");
+
+// initialisation de la variable id_produit_consultation si posté
+$idProduitConsultation = filter_input(INPUT_GET, "id_produit_consultation");
+
+//
+// Gestion des IHM
+// 
+// Initialisation de la variable IHM à accueil pour affichage
+
+$IHM = 'accueil';
+//
+// A traiter
+//
+// Si pas de solution pour transiter id+ lien section:
+//
+if(isset($idProduitConsultation)){$IHM='shop-details';}
+//
+// si aucun article n'est sélectionné en visualisation
+// initialisation de la valeur à 7 par défaut pour afficher un produit.
+// algo à écrire afin d'aficher un article aléatoirement
+if($idProduitConsultation==""){
+$idProduitConsultation=7;
+};
+
 
 // SUPPRESSION D'UN ARTICLE DU PANIER
 
@@ -30,19 +52,52 @@ if($articleASupprimer!==NULL){
         $_SESSION['Panier']=$cart;
 };
 
-// Récupération des valeurs du Cookie Panier avant à l'arrivée sur le site
-// pour récupérer le précedant panier.
 
 
-        //$_SESSION['Panier'] = filter_input(INPUT_COOKIE, "Panier");
-        //$_SESSION['SommePanier'] = filter_input(INPUT_COOKIE, "SommePanier");
+
 
 //
-// Gestion des IHM
+// Visualisation d'un article sur la page shop-details
 // 
-// Initialisation de la variable IHM à accueil pour affichage
-$IHM = 'accueil';
 
+if(isset($idProduitConsultation)){
+
+    try {
+    require_once 'entities/Produit.php';
+    require_once 'daos/ProduitDAO.php';
+    require_once 'daos/Database.php';
+    require_once 'entities/Photo.php';
+    require_once 'daos/PhotoDAO.php';
+
+    $connexion = new Connexion();
+    // Selection du fichier .ini pour selection du serveur
+    $pdo = $connexion->connect("conf/bd.ini");
+    $dao = new ProduitDAO($pdo);
+    $object = $dao->selectProduitById($pdo,$idProduitConsultation);
+    // Récupération des valeurs du produit
+    $prixProduitVisualise = $object -> getPrix();
+    $designationProduitVisualise = $object -> getDesignation();
+    $descriptionProduitVisualise = $object->getDescription();
+    $stockProduitVisualise = $object->getQteStockee();
+    
+    $daoPhoto = new PhotoDAO($pdo);
+    $objetPhoto = $daoPhoto->selectPhotoById($pdo,$idProduitConsultation);
+    // Récupération des valeurs du produit
+    $consultationPhotoPrincipale = $objetPhoto->getPhotoPrincipale();
+    $consultationPhoto2 = $objetPhoto->getPhoto2();
+    $consultationPhoto3= $objetPhoto->getPhoto3();
+    $consultationPhoto4= $objetPhoto->getPhoto4();    
+    }
+    
+    
+    catch (Exception $exc) {
+    $errorMessage = "-1";
+}
+//   echo $prixProduitVisualise;
+//   echo $designationProduitVisualise;
+//   echo $descriptionProduitVisualise;
+//   echo $stockProduitVisualise;
+};
 // Récupération de l'action suite clic du lien 
 $action = filter_input(INPUT_GET, "action");
 
@@ -74,12 +129,12 @@ try {
     // Inserer boucle sur les categories
     $listeCategories = "";
     // Gestion de la liste des Produits
-    $listeProduits = "<li data-filter='*'><a href='index.php#catalogue'>Tous les produits</a></li>";
+    $listeProduits = "<li data-filter='*'class='mixitup-control-active'><a href='index.php#catalogue'>Tous les produits</a></li>";
     foreach ($tCategorie as $objet) {
         $categorie = $objet->getCategorie();
         $classCategorie = strtolower($categorie);
-        $listeCategories .= "<li><a href='index.php#catalogue'>$categorie </a></li>";
-        $listeProduits .= "<li data-filter='.$classCategorie'><a href='index.php#catalogue'>$categorie</a></li>";
+        $listeCategories .= "<li data-filter='.$classCategorie'class='mixitup-control-active'><a href='index.php#catalogue'>$categorie </a></li>";
+        $listeProduits .= "<li data-filter='.$classCategorie'class='mixitup-control-active'><a href='index.php#catalogue'>$categorie</a></li>";
     }
     if ($objet == FALSE) {
         $errorMessage = "-1";
@@ -138,7 +193,11 @@ if (isSet($IHM) && ($IHM === "accueil")) {
             $produitO = $daoProduit->selectOne($pdo, $produit);
             $contenu .= "<div class='col-lg-3 col-md-4 col-sm-6 mix " . strtolower($value->getCategorie()) . "'><div class='featured__item'><div class='featured__item__pic set-bg' data-setbg='img/product/" . $valueP->getPhotoPrincipale() . "'style='background-image: url(../img/product/" . $valueP->getPhotoPrincipale();
             $contenu .= "')</div>";
-            $contenu .= "<ul class='featured__item__pic__hover'><li><a href='#'><i class='fa fa-eye'></i></a></li><li><a href='index.php?id_produit=";
+            $contenu .= "<ul class='featured__item__pic__hover'>";
+            $contenu .= "<li><a href='index.php?id_produit_consultation=";
+            $contenu.=$produitO->getIdProduit();
+            $contenu.="'&?action=shop-details#produit><i class='fa fa-eye'></i></a></li>";
+            $contenu .= "<li><a href='index.php?id_produit=";
             $contenu .=$produitO->getIdProduit();            
             $contenu .="'><i class='fa fa-shopping-cart'></i></a></li></ul></div></div>";           
             $contenu .= "<div class='featured__item__text'style=padding:0px!important;margin-top:-40px!important;margin-bottom:40px!important>
@@ -187,8 +246,7 @@ if ($emailClient != null && $passwordClient != null) {
         } else {
             $message = "1";
 
-            // Ouverture d'une session si selectOneByEmailAndPwd OK.
-            //session_start();
+            // Session ouverte au lancement du script pour la gestion du panier
 
             // récupération des données client contenues dans la BD
             $idCSession = $objet->getIdClient();
@@ -217,7 +275,7 @@ if ($emailClient != null && $passwordClient != null) {
             $_SESSION['newsletter'] = $newsLetterSession;
             $_SESSION['idVille'] = $idVSession;
             
-            //
+//
 // REMPLISSAGE DES CHAMPS VOS INFORMATIONS SI CLIENT AUTHENTIFIE
 //
 
@@ -293,7 +351,7 @@ if ($emailClient != null && $passwordClient != null) {
 };
 
 
-//
+
 // GESTION DE L'INSCRIPTION
 // 
 // CONTROLES A POSITIONNER SUR FORMULAIRE
@@ -326,23 +384,6 @@ if (((isset($btValiderInscription)) != null) && ((isset($inscrptionValidation)) 
     $paysInscription = filter_input(INPUT_POST, "paysInscription");
     $message;
     $errorMessageInscription;
-
-// Affichage des valeurs durant le développement
-    
-//    echo "villeInscription: " . $villeInscription . "<br>";
-//    echo "civiliteInscription: " . $civiliteInscription . "<br>";
-//    echo "nomInscription: " . $nomInscription . "<br>";
-//    echo "prenomInscription: " . $prenomInscription . "<br>";
-//    echo "dateInscription: " . $dateNaissanceClient . "<br>";
-//    echo "emailInscription: " . $emailInscription . "<br>";
-//    echo "email2Inscription: " . $emailInscription2 . "<br>";
-//    echo "telephoneInscription: " . $telephoneInscription . "<br>";
-//    echo "adresseInscription: " . $adresseInscription . "<br>";
-//    echo "pwdInscription: " . $pwdClientInscription . "<br>";
-//    echo "pwd2Inscription: " . $pwdClient2Inscription . "<br>";
-//    echo "newsletterInscription: " . $newsLetterInscription . "<br>";
-//    echo "paysInscription: " . $paysInscription . "<br>";
-//    echo "cpInscription: " . $cpInscription . "<br>";
 
 // Contrôle sur la saisie de tous les champs
 
@@ -509,8 +550,7 @@ if(isSet($idProduit)!==NULL){
     
     // si le Cookie Panier est créé et contient un article
     // si la session Panier est créée et contient un article
-    // mise à jour de l'affichage panier+ somme
-    //if(filter_input(INPUT_COOKIE, "Panier")!==NULL){
+    // mise à jour de l'affichage panier+ sommePanier
     if($_SESSION['Panier']!==NULL && $_SESSION['Panier']!==0 && $_SESSION['Panier']!==""){
     // le cookie est transformé en tableau
     //$tCookie=explode('#',$_COOKIE["Panier"]);
@@ -578,18 +618,13 @@ if(isSet($idProduit)!==NULL){
 
 };
 
-
+// Mise à 0 de la SommePanier si panier vidé
 if($_SESSION['Panier']==0){$_SESSION['SommePanier']=0;};
 if($_SESSION['Panier']==""){$_SESSION['Panier']=0;};
-//if(filter_input(INPUT_COOKIE, "Panier")===NULL){
-  //setcookie("SommePanier", "",time() + 60 * 60 * 24 * 14);
-  //$_SESSION['SommePanier']=0;
-//};
-//Affichage du panier durant les tests
-//var_dump ($_SESSION['Panier']);
-//var_dump($_SESSION['SommePanier']);
-//echo "Somme Panier: ".$sommePanier;
-// Appel de la page correspondant à l'action désirée
+
+
+
+
 include 'boundaries/' . $IHM . '.php';
 
 //include 'boundaries/accueil.php';      ==> page d'accueil
