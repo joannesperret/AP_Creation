@@ -82,17 +82,17 @@
                                 src='img/product/<?php if (isset($consultationPhotoPrincipale)){echo $consultationPhotoPrincipale;}?>' alt="">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
-                            <!-- Code PHP à corriger-->
+                            <!-- Code PHP à corriger non intégré à la page-->
                             <?php if (isset($consultationPhoto2)){echo "<img data-imgbigurl='img/product/$consultationPhoto2'src='img/product/$consultationPhoto2'alt=''";}?>     
                             <?php if (isset($consultationPhoto3)){echo "<img data-imgbigurl='img/product/$consultationPhoto3'src='img/product/$consultationPhoto3'alt=''";}?>  
                             <?php if (isset($consultationPhoto4)){echo "<img data-imgbigurl='img/product/$consultationPhoto4'src='img/product/$consultationPhoto4'alt=''";}?>  
                             
-                            <img data-imgbigurl="img/product/<?php if (isset($consultationPhoto2)){echo $consultationPhoto2;}?>"
-                                src="img/product/<?php if (isset($consultationPhoto2)){echo $consultationPhoto2;}?>" alt="">
-                            <img data-imgbigurl="img/product/<?php if (isset($consultationPhoto3)){echo $consultationPhoto3;}?>"
-                                src="img/product/<?php if (isset($consultationPhoto3)){echo $consultationPhoto3;}?>" alt="">
-                            <img data-imgbigurl="img/product/<?php if (isset($consultationPhoto4)){echo $consultationPhoto4;}?>"
-                                src="img/product/<?php if (isset($consultationPhoto4)){echo $consultationPhoto4;}?>" alt="">                          
+                            <img data-imgbigurl="img/product/<?php if (isset($consultationPhoto2)!=null){echo $consultationPhoto2;}?>"
+                                src="img/product/<?php if (isset($consultationPhoto2)!=null){echo $consultationPhoto2;}?>" alt="">
+                            <img data-imgbigurl="img/product/<?php if (isset($consultationPhoto3)!=null){echo $consultationPhoto3;}?>"
+                                src="img/product/<?php if (isset($consultationPhoto3)!=null){echo $consultationPhoto3;}?>" alt="">
+                            <img data-imgbigurl="img/product/<?php if (isset($consultationPhoto4)!=null){echo $consultationPhoto4;}?>"
+                                src="img/product/<?php if (isset($consultationPhoto4)!=null){echo $consultationPhoto4;}?>" alt="">                          
                         </div>
                     </div>
                 </div>
@@ -101,20 +101,20 @@
                         <h3><?php if (isset($designationProduitVisualise)){echo $designationProduitVisualise;}?></h3>
                         <div class="product__details__price"><?php if (isset($prixProduitVisualise)){echo "€ ".$prixProduitVisualise;}?></div>
                         <p><?php if (isset($descriptionProduitVisualise)){echo $descriptionProduitVisualise;}?></p>
-                        <div class="product__details__quantity">
+<!--                        <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
                                     <input type="text" value="1">
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <a href="#" class="primary-btn">AJOUTER AU PANIER</a>
-                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+<!--                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>-->
                         <ul>
-                            <li><b>Availability</b> <span>In Stock</span></li>
-                            <li><b>Shipping</b> <span>01 day shipping. <samp>Livraison gratuite ce jour!</samp></span></li>
+                            <li><b>Disponibilité</b><span>En stock</span></li>
+                            <li><b>Expédition</b>48 h<span> <samp>Livraison gratuite ce jour!</samp></span></li>
                            
-                            <li><b>Share on</b>
+                            <li><b>Partagez</b>
                                 <div class="share">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
                                     <a href="#"><i class="fa fa-twitter"></i></a>
@@ -125,7 +125,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-12">
+<!--                <div class="col-lg-12">
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
@@ -204,14 +204,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </section>
     <!-- Product Details Section End -->
 
     <!-- Related Product Section Begin -->
-    <section class="related-product">
+<!--    <section class="related-product">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -283,7 +283,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
     <!-- Related Product Section End -->
 
     <!-- Footer Section Begin -->

@@ -4,6 +4,8 @@
  * index.php
  */
 
+
+
 // Démarrage de la session au lancement du script afin de gérer
 // les variables de session 'Panier' et 'SommePanier'.
 
@@ -129,12 +131,12 @@ try {
     // Inserer boucle sur les categories
     $listeCategories = "";
     // Gestion de la liste des Produits
-    $listeProduits = "<li data-filter='*'class='mixitup-control-active'><a href='index.php#catalogue'>Tous les produits</a></li>";
+    $listeProduits = "<li data-filter='*'><a href='index.php#catalogue'>Tous les produits</a></li>";
     foreach ($tCategorie as $objet) {
         $categorie = $objet->getCategorie();
         $classCategorie = strtolower($categorie);
-        $listeCategories .= "<li data-filter='.$classCategorie'class='mixitup-control-active'><a href='index.php#catalogue'>$categorie </a></li>";
-        $listeProduits .= "<li data-filter='.$classCategorie'class='mixitup-control-active'><a href='index.php#catalogue'>$categorie</a></li>";
+        $listeCategories .= "<li data-filter='.$classCategorie'><a href='index.php#catalogue'>$categorie </a></li>";
+        $listeProduits .= "<li data-filter='.$classCategorie'><a href='index.php#catalogue'>$categorie</a></li>";
     }
     if ($objet == FALSE) {
         $errorMessage = "-1";
@@ -196,7 +198,7 @@ if (isSet($IHM) && ($IHM === "accueil")) {
             $contenu .= "<ul class='featured__item__pic__hover'>";
             $contenu .= "<li><a href='index.php?id_produit_consultation=";
             $contenu.=$produitO->getIdProduit();
-            $contenu.="'&?action=shop-details#produit><i class='fa fa-eye'></i></a></li>";
+            $contenu.="&index.php?action=shop-details#produit'><i class='fa fa-eye'></i></a></li>";
             $contenu .= "<li><a href='index.php?id_produit=";
             $contenu .=$produitO->getIdProduit();            
             $contenu .="'><i class='fa fa-shopping-cart'></i></a></li></ul></div></div>";           
@@ -623,7 +625,9 @@ if($_SESSION['Panier']==0){$_SESSION['SommePanier']=0;};
 if($_SESSION['Panier']==""){$_SESSION['Panier']=0;};
 
 
+// Test de modification de l' IHM via le ?action
 
+//echo $IHM;
 
 include 'boundaries/' . $IHM . '.php';
 
@@ -636,6 +640,8 @@ include 'boundaries/' . $IHM . '.php';
 //include 'boundaries/shop-details.php'  ==> page produit
 //include 'boundaries/shop-grid.php'     ==> page boutique
 //include 'boundaries/shoping-cart.php'  ==> page panier
+
+// Test de modification de l' IHM via le ?action
 
 
 

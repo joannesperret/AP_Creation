@@ -15,7 +15,7 @@
                             <i class="fa fa-bars"></i>
                             <span>Catégories</span>
                         </div>
-                        <ul>                          
+                        <ul style="display:none">                          
                             <?php
                             if (isset($listeProduits)) {
                                 echo $listeProduits;
