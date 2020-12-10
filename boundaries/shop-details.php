@@ -108,10 +108,12 @@
                                 </div>
                             </div>
                         </div>-->
-                        <a href="#" class="primary-btn">AJOUTER AU PANIER</a>
-<!--                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>-->
+                        <!--Id du produit à intégrer dans le lien type: 
+                        <a href='index.php?id_produit=$idProduitVisualise; -->
+                        <a href="index.php?id_produit=<?php if (isset($idProduitVisualise)){echo $idProduitVisualise;}?>" class="primary-btn">AJOUTER AU PANIER</a>
+<!--                       <a href="index.php?id_produit=" class="heart-icon"><span class="icon_heart_alt"></span></a>-->
                         <ul>
-                            <li><b>Disponibilité</b><span>En stock</span></li>
+                            <li><b>Disponibilité</b><span>Quantité en stock: <?php if (isset($stockProduitVisualise)){echo $stockProduitVisualise;}?></span></li>
                             <li><b>Expédition</b>48 h<span> <samp>Livraison gratuite ce jour!</samp></span></li>
                            
                             <li><b>Partagez</b>

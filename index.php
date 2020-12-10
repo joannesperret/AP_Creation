@@ -81,6 +81,7 @@ if(isset($idProduitConsultation)){
     $designationProduitVisualise = $object -> getDesignation();
     $descriptionProduitVisualise = $object->getDescription();
     $stockProduitVisualise = $object->getQteStockee();
+    $idProduitVisualise = $object->getIdProduit();
     
     $daoPhoto = new PhotoDAO($pdo);
     $objetPhoto = $daoPhoto->selectPhotoById($pdo,$idProduitConsultation);
