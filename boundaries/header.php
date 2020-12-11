@@ -75,18 +75,19 @@ if((session_id()!== "") && ($action === "deconnexion")){
                     <nav class="header__menu">
                         <ul>
                             <li><a href='index.php?action=accueil'>Accueil</a></li>
-                            <li><a href='index.php?action=shop-grid'>Boutique</a></li>
-                            <li><a href="#">Pages</a>
+<!--                            <li><a href='index.php?action=shop-grid'>Boutique</a></li>-->
+<!--                            <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href='index.php?action=shop-details'>Produits</a></li>
-                                    <li><a href='index.php?action=shoping-cart#panier'>Panier</a></li>
-                                    <li><a href='index.php?action=checkout#compte'>Mon compte</a></li>
+                                    <li><a href='index.php?action=shoping-cart#panier'>Panier</a></li>-->
+                                    
 <!--                                    <li><a href='index.php?action=blog-details'>Articles du blog</a></li>-->
-                                </ul>
-                            </li>
+<!--                                </ul>
+                            </li>-->
 <!--                            <li><a href='index.php?action=blog'>Blog</a></li>-->
+                            <li><a href='index.php?action=checkout#compte'>Mon compte</a></li>
                             <li class="active"><a href='index.php?action=contact#contact'>Contact</a></li>
-<!--                        </ul>-->
+                        </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
