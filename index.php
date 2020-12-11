@@ -89,7 +89,9 @@ if(isset($idProduitConsultation)){
     $consultationPhotoPrincipale = $objetPhoto->getPhotoPrincipale();
     $consultationPhoto2 = $objetPhoto->getPhoto2();
     $consultationPhoto3= $objetPhoto->getPhoto3();
-    $consultationPhoto4= $objetPhoto->getPhoto4();    
+    $consultationPhoto4= $objetPhoto->getPhoto4();  
+    
+   
     }
     
     
@@ -101,6 +103,8 @@ if(isset($idProduitConsultation)){
 //   echo $descriptionProduitVisualise;
 //   echo $stockProduitVisualise;
 };
+  
+    
 // Récupération de l'action suite clic du lien 
 $action = filter_input(INPUT_GET, "action");
 
@@ -630,7 +634,11 @@ if($_SESSION['Panier']==""){$_SESSION['Panier']=0;};
 
 //echo $IHM;
 
+
+
 include 'boundaries/' . $IHM . '.php';
+
+
 
 //include 'boundaries/accueil.php';      ==> page d'accueil
 //include 'boundaries/connexion.php';    ==> page d'authentification

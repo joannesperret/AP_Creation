@@ -36,6 +36,8 @@
 </head>
 
 <body>
+    
+   
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -83,16 +85,10 @@
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
                             <!-- Code PHP à corriger non intégré à la page-->
-                            <?php if (isset($consultationPhoto2)){echo "<img data-imgbigurl='img/product/$consultationPhoto2'src='img/product/$consultationPhoto2'alt=''";}?>     
-                            <?php if (isset($consultationPhoto3)){echo "<img data-imgbigurl='img/product/$consultationPhoto3'src='img/product/$consultationPhoto3'alt=''";}?>  
-                            <?php if (isset($consultationPhoto4)){echo "<img data-imgbigurl='img/product/$consultationPhoto4'src='img/product/$consultationPhoto4'alt=''";}?>  
-                            
-                            <img data-imgbigurl="img/product/<?php if (isset($consultationPhoto2)!=null){echo $consultationPhoto2;}?>"
-                                src="img/product/<?php if (isset($consultationPhoto2)!=null){echo $consultationPhoto2;}?>" alt="">
-                            <img data-imgbigurl="img/product/<?php if (isset($consultationPhoto3)!=null){echo $consultationPhoto3;}?>"
-                                src="img/product/<?php if (isset($consultationPhoto3)!=null){echo $consultationPhoto3;}?>" alt="">
-                            <img data-imgbigurl="img/product/<?php if (isset($consultationPhoto4)!=null){echo $consultationPhoto4;}?>"
-                                src="img/product/<?php if (isset($consultationPhoto4)!=null){echo $consultationPhoto4;}?>" alt="">                          
+                        
+                             <?php if($consultationPhoto2!=""){echo "<img data-imgbigurl='img/product/".$consultationPhoto2."'src='img/product/".$consultationPhoto2." 'alt=''>";}?>  
+                             <?php if($consultationPhoto3!=""){echo "<img data-imgbigurl='img/product/".$consultationPhoto3."'src='img/product/".$consultationPhoto3." 'alt=''>";}?>  
+                            <?php if($consultationPhoto4!=""){echo "<img data-imgbigurl='img/product/".$consultationPhoto4."'src='img/product/".$consultationPhoto4." 'alt=''>";}?>                                                     
                         </div>
                     </div>
                 </div>
