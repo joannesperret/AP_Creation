@@ -107,6 +107,8 @@
                         <!--Id du produit à intégrer dans le lien type: 
                         <a href='index.php?id_produit=$idProduitVisualise; -->
                         <a href="index.php?id_produit=<?php if (isset($idProduitVisualise)){echo $idProduitVisualise;}?>" class="primary-btn">AJOUTER AU PANIER</a>
+                        <a href="index.php?action=accueil#catalogue" class="primary-btn cart-btn">CONTINUE SHOPPING</a>                       
+                  
 <!--                       <a href="index.php?id_produit=" class="heart-icon"><span class="icon_heart_alt"></span></a>-->
                         <ul>
                             <li><b>Disponibilité</b><span>Quantité en stock: <?php if (isset($stockProduitVisualise)){echo $stockProduitVisualise;}?></span></li>
