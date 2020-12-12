@@ -30,6 +30,9 @@
 /* Template default CSS
 /*----------------------------------------*/
 
+/* Id de la carte Leaflet*/
+#mapid { height: 500px; }
+
 html,
 body {
 	height: 100%;

@@ -33,6 +33,13 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <script src="jquery/jquery.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>    
+ <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+   
 </head>
 
 <body>
@@ -107,26 +114,21 @@
     </section>
     <!-- Contact Section End -->
 
-    <!-- Map Begin -->
-    <div class="map">
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49116.39176087041!2d-86.41867791216099!3d39.69977417971648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x886ca48c841038a1%3A0x70cfba96bf847f0!2sPlainfield%2C%20IN%2C%20USA!5e0!3m2!1sen!2sbd!4v1586106673811!5m2!1sen!2sbd"
-            height="500" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-<!--            Key -- AIzaSyBQSF7bgJThj30DW1nFXqImZJyxeWwDQPY-->
-  
-            <div class="map-inside">
-            <i class="icon_pin"></i>
-            <div class="inside-widget">
-                <h4>Wattrelos</h4>
-                <ul>
-                    <li>Téléphone: 06 52 81 07 98</li>
-                    <li>7 Hameau du Malgré Tout, 591150 Wattrelos</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- Map End -->
-
+    <!-- Map Begin Leaflet-->
+    <div id="mapid"></div>
+    <script>var mymap = L.map('mapid').setView([50.704720, 3.252090], 15);
+        var marker = L.marker([50.704720, 3.252090]).addTo(mymap);
+        marker.bindPopup("<b>Ap- Creation</b>").openPopup();
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/satellite-v9',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1Ijoiam9hbm43cyIsImEiOiJja2lsbGFpOTMwa290MnJxamt4OWducHl1In0.eIzlxTTNycbaBAl4kxcYMA'
+}).addTo(mymap);
+    </script>
+ <!-- Map End Leaflet-->
     <!-- Contact Form Begin -->
     <div class="contact-form spad">
         <div class="container">
