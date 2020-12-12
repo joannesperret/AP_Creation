@@ -16,7 +16,8 @@
     --------------------*/
     $(window).on('load', function () {
         $(".loader").fadeOut();
-        $("#preloder").delay(200).fadeOut("slow");
+        $("#preloder").delay(200).fadeOut("slow");        
+
 
         /*------------------
             Gallery filter
@@ -220,5 +221,31 @@
         }
         $button.parent().find('input').val(newVal);
     });
+    
+/* Ajout des fonction d'affichage des mots de passe */    
+    
+    /**
+ * 
+ * @returns {undefined}
+ */
+
+      
+
+ /// init
+
+
+/**
+ * 
+ * @return {undefined}
+ */
+function pwdVisible() {
+    console.log("checked prop " + $("#pwdVisible").attr("checked"));
+    //console.log("checked attr " + $("#chkMdpVisible").attr("checked"));
+    if ($("#diff-acc").prop("checked")) {
+        $("#pwdClient").prop("type", "text");
+    } else {
+        $("#pwdClient").prop("type", "password");
+    }
+} /// mdpVisible
 
 })(jQuery);

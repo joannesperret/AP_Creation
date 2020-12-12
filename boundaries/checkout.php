@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="css/personnalise.css" type="text/css">
     <script src="jquery/jquery.js"></script>
     <script src="js/ajax.js"></script>
+    <script src="js/script.js"></script>
     <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
 </head>
 
@@ -183,28 +184,28 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Mot de passe<span>*</span></p>
-                                        <input type="password" name="passwordInscription" value="<?php if (isSet($_SESSION['password'])) echo $_SESSION['password'] ?>" placeholder="Entrez votre mot de passe">
+                                        <input type="password" name="passwordInscription" id="password"  value="<?php if (isSet($_SESSION['password'])) echo $_SESSION['password'] ?>" placeholder="Entrez votre mot de passe">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Confirmez votre mot de passe<span>*</span></p>
-                                        <input type="password" name="passwordInscription2" value="<?php if (isSet($_SESSION['password'])) echo $_SESSION['password'] ?>" placeholder="Confirmez votre mot de passe">
+                                        <input type="password" name="passwordInscription2" id="password2" value="<?php if (isSet($_SESSION['password'])) echo $_SESSION['password'] ?>" placeholder="Confirmez votre mot de passe">
                                     </div>
                                 </div>
                             </div>
                             <div class="checkout__input__checkbox">
                                 <label for="diff-acc">
-                                    Vous faire livrer à une adresse différente?
+                                    Afficher le mot de passe
                                     <input type="checkbox" id="diff-acc">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                            <div class="checkout__input">
+<!--                            <div class="checkout__input">
                                 <p>Informations complémentaires de livraison<span>*</span></p>
                                 <input type="text"
                                        placeholder="Informations complémentaires de livraison.">
-                            </div>
+                            </div>-->
                         </div>   
                     
                         <div class="col-lg-6 col-md-6">

@@ -30,6 +30,7 @@
         <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
         <link rel="stylesheet" href="css/style.css" type="text/css">
         <script src="jquery/jquery.js"></script>
+        <script src="js/script.js"></script>
     </head>
 
     <body>
@@ -83,9 +84,16 @@
                                     <div class="col-lg-6">
                                         <div class="checkout__input">
                                             <p>Mot de passe<span>*</span></p>
-                                            <input type="password" placeholder="Entrez votre mot de passe" name="pwdConnexion" value="">
+                                            <input type="password" placeholder="Entrez votre mot de passe" name="pwdConnexion" value="" id="password3">
                                         </div>
                                     </div>
+                                    <div class="checkout__input__checkbox">
+                                <label for="diff-acc">
+                                    Afficher le mot de passe
+                                    <input type="checkbox" id="diff-acc">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
                                 </div>            
                                 <button type="submit" class="site-btn"name="btnValiderAuthentification" value="button">Valider</button>                                           
                             </div>
