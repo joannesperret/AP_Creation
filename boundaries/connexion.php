@@ -1,13 +1,13 @@
-<?php
-/*
- * connexion.php
- */
-?>
-
 <!DOCTYPE html>
-<html lang="zxx">
+<!--
+connexion.php
+-->
+<html>
+<html lang="fr">
 
     <head>
+	
+	<!-- inclusion dans le head des meta names, du favicon et définition de l'affichage-->
         <meta charset="UTF-8">
         <meta name="description" content="Ogani Template">
         <meta name="keywords" content="Ogani, unica, creative, html">
@@ -18,9 +18,9 @@
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
-        <!-- CSS only -->
-        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
-        <!-- Css Styles -->
+               
+        <!-- Css Styles inclusion des librairies, plugins, fichiers css -->
+		<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
         <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
@@ -28,9 +28,7 @@
         <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
         <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
         <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-        <link rel="stylesheet" href="css/style.css" type="text/css">
-        <script src="jquery/jquery.js"></script>
-        <script src="js/script.js"></script>
+        <link rel="stylesheet" href="css/style.css" type="text/css">       
     </head>
 
     <body>
@@ -39,16 +37,17 @@
             <div class="loader"></div>
         </div>
 
+		<!-- inclusion des trois sections se répétant sur toutes les pages pour faciliter la maintenance -->
         <!-- Menu mobile -->
-<?php include "menu_mobile.php" ?>
+        <?php include "menu_mobile.php" ?>
 
         <!-- Header -->
-<?php include "header.php" ?>
+        <?php include "header.php" ?>
 
         <!-- Bandeau recherche -->
-<?php include "recherche.php" ?>
+        <?php include "recherche.php" ?>
 
-        <!-- Breadcrumb Section Begin -->
+        <!-- Section bandeau de séparation -->
         <section id="connexion" class="breadcrumb-section set-bg" data-setbg="img/breadcrumb_ap.jpg">
             <div class="container">
                 <div class="row">
@@ -64,13 +63,14 @@
                 </div>
             </div>
         </section>
-        <!-- Breadcrumb Section End -->
+        <!-- Bandeau fin de section -->
 
-        <!-- Checkout Section Begin -->
+        <!-- Début de la section de connexion -->
         <section class="checkout spad" >
             <div class="container">
                 <div class="checkout__form">
                     <h4>Connectez- vous:</h4>
+					<!-- Formulaire d'inscription -->
                     <form action="index.php?action=connexion#connexion method=POST">
                         <div class="row">
                             <div class="col-lg-8 col-md-6" style="margin:0 auto">
@@ -88,18 +88,19 @@
                                         </div>
                                     </div>
                                     <div class="checkout__input__checkbox">
-                                <label for="diff-acc">
-                                    Afficher le mot de passe
-                                    <input type="checkbox" id="diff-acc">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
+                                        <label for="diff-acc">
+                                            Afficher le mot de passe
+                                            <input type="checkbox" id="diff-acc">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
                                 </div>            
                                 <button type="submit" class="site-btn"name="btnValiderAuthentification" value="button">Valider</button>                                           
                             </div>
                         </div>
                     </form>
                     <p>
+					<!-- Div d'affichage des messages après envoi des données via le formulaire -->
                         <label id="message" class="message">
                             <div class="<?php if (isSet($errorMessageAuthentification) != "") echo "alert alert-danger" ?>" role="alert">                                
                                 <p style="text-align: center"><?php if (isSet($errorMessageAuthentification) != "") echo $errorMessageAuthentification ?></p>
@@ -107,46 +108,45 @@
                             <div class="<?php if (isSet($messageAuthentification) != "") echo "alert alert-success" ?>" role="alert">                                
                                 <p style="text-align: center"><?php if (isSet($messageAuthentification) != "") echo $messageAuthentification ?></p>                                                         
                             </div>
-<?php
-if (isset($message)) {
-    if ($message === "") {
-        $message = "Vous êtes connecté";
-    }
-    if ($message === "0") {
-        $message = "Vous êtes déconnecté(e) !";
-    }
-    // echo $message;
-}
-?>
+                            <?php
+                            if (isset($message)) {
+                                if ($message === "") {
+                                    $message = "Vous êtes connecté";
+                                }
+                                if ($message === "0") {
+                                    $message = "Vous êtes déconnecté(e) !";
+                                }
+                               
+                            }
+                            ?>
                         </label>
                         <label id="lblMessageErreur" class="erreur">
-<?php
-if (isset($errorMessage)) {
-    if ($errorMessage === "-1") {
-        $errorMessage = "Authentification KO";
-    }
-    if ($errorMessage === "0") {
-        $errorMessage = "Vous devez être identifié(e) pour accéder à 'Gérer mon compte' !";
-    }
-    // echo $errorMessage;
-}
+                            <?php
+                            if (isset($errorMessage)) {
+                                if ($errorMessage === "-1") {
+                                    $errorMessage = "Authentification KO";
+                                }
+                                if ($errorMessage === "0") {
+                                    $errorMessage = "Vous devez être identifié(e) pour accéder à 'Gérer mon compte' !";
+                                }                                
+                            }
 
-if (isset($prenomClient)) {
-    echo $prenomClient->getPrenomclient() . "<br>";
-}
-?>
+                            if (isset($prenomClient)) {
+                                echo $prenomClient->getPrenomclient() . "<br>";
+                            }
+                            ?>
                         </label>
                     </p>
                 </div>
             </div>
         </section>
-        <!-- Checkout Section End -->
+        <!-- Fin de la section de connexion -->
 
-        <!-- Footer Section Begin -->
+        <!-- inclusion du footer présent sur toutes les pages -->
         <?php include "footer.php" ?>
-        <!-- Footer Section End -->
+        <!-- fin de la section footer -->
 
-        <!-- Js Plugins -->
+        <!-- inclusion des plugins JavaScript -->
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.nice-select.min.js"></script>
@@ -155,8 +155,8 @@ if (isset($prenomClient)) {
         <script src="js/mixitup.min.js"></script>
         <script src="js/owl.carousel.min.js"></script>
         <script src="js/main.js"></script>
-
-
+		 <script src="jquery/jquery.js"></script>
+        <script src="js/script.js"></script>
 
     </body>
 
