@@ -4,9 +4,10 @@
   ClientDAO.php
  */
 /*
-  LE DAO de la table [client] de la BD [projet]
+  LE DAO de la table [client] de la BD [joannesperret_api_normalisee]
  */
 
+/* Inclusion du DTO 'client' */
 require_once 'entities/Client.php';
 
 class ClientDAO {
@@ -16,17 +17,19 @@ class ClientDAO {
      * @return array
      */
     
-    /// selectALL
+	// Toutes les fonctions prennent en paramètre l'objet $pdo afin de factoriser la connexion
+    // Fonction de selection de la totalité des clients
+	
     
     public static function selectAll(PDO $pdo): array {
         $list = array();
         try {
             $sql = 'SELECT * FROM client';
             $rs = $pdo->query($sql);
+			// Avec ce mode, sont associées les en-têtes des colonnes avec les paramètres de notre objet
             $rs->setFetchMode(PDO::FETCH_ASSOC);
             while ($record = $rs->fetch()) {
                 $object = new Client($record['id_client'], $record['civilite'], $record['nom'], $record['prenom'], $record['adresse'], $record['email_client'], $record['password'], $record['telephone_client'], $record['date_naissance'], $record['newsletter'], $record['id_ville']);
-                //$object = new Client($record['id_client'], $record['civilite'], $record['nom'], $record['prenom'], $record['adresse'], $record['email_client'], $record['password'], $record['telephone_client'], $record['date_naissance'], $record['newsletter'], $record['id_ville']);
                 $list[] = $object;
             }
         } catch (PDOException $e) {
@@ -44,13 +47,14 @@ class ClientDAO {
      * @return \Client
      */
     
-     /// selectOne
+     //Fonction de selection d'un client par son id passé en objet.
     
     public static function selectOne(PDO $pdo, $pObject): Client {
         $object = null;
         try {
             $sql = 'SELECT * FROM client WHERE id_client = ?';
             $cmd = $pdo->prepare($sql);
+			// Le passage de paramètres en binValue permet d'accroître la sécurité
             $cmd->bindValue(1, $pObject->getIdClient());
             $rs = $cmd->execute();
             $record = $cmd->fetch(PDO::FETCH_ASSOC);
@@ -82,6 +86,9 @@ class ClientDAO {
      * @param Client $pObject
      * @return \Client
      */
+	 
+	 // Fonction de selection d'un client par la clef mot de passe et email.
+	 
     public static function selectOneByEmailAndPwd(PDO $pdo, $pObject) {
         $object = null;
         try {
@@ -91,8 +98,7 @@ class ClientDAO {
             $cmd->bindValue(2, $pObject->getPwdClient());
             $cmd->execute();
             $record = $cmd->fetch(PDO::FETCH_ASSOC);
-            if ($record != null) {
-                // echo "Client trouvé";
+            if ($record != null) {                
                 $object = new Client();
                 $object->setIdClient($record['id_client']);
                 $object->setCiviliteClient($record['civilite']);
@@ -106,20 +112,15 @@ class ClientDAO {
                 $object->setNewsLetterClient($record['newsletter']);
                 $object->setIdVille($record['id_ville']);
                 
-            } else {
-                // echo "Client introuvable<br>";
-                //$object = null;
-//                $object = new Client();
-//                $object->setNomClient("Authentification ratée");
+            } else {              
+                $object = null;
+
             }
         } catch (PDOException $e) {
             echo $e->getMessage();
-//            $object = new Client();
-//            $object->setNomClient("Erreur système ...");
-            //$object = null;
         }
         return $object;
-        /// selectOneByEmailAndPwd
+    
     }
 
     /**
@@ -128,6 +129,9 @@ class ClientDAO {
      * @param Client $object
      * @return int
      */
+	 
+	  // Fonction de suppression d'un client par son id.
+	  
     public static function delete(PDO $pdo, $object): int {
         $affected = 0;
         try {
@@ -142,7 +146,7 @@ class ClientDAO {
             echo $e->getMessage();
         }
         return $affected;
-        /// delete
+       
     }
 
     /**
@@ -151,6 +155,9 @@ class ClientDAO {
      * @param Client $object
      * @return int
      */
+	 
+	 // Fonction d'insertion d'un nouveau client.
+	 
     public static function insert(PDO $pdo, $object): int {
         $affectedInsert = 0;
         try {
@@ -173,11 +180,10 @@ class ClientDAO {
 
             $affectedInsert = $cmd->rowcount();
         } catch (PDOException $e) {
-            $affectedInsert = -1;
-            //echo "<hr>" . $e->getMessage() . "<hr>";
+            $affectedInsert = -1;            
         }
         return $affectedInsert;
-        /// insert
+       
     }
 
     /**
@@ -186,6 +192,8 @@ class ClientDAO {
      * @param Client $object
      * @return int
      */
+	 
+	 // Fonction de mise à jour d'un client par passage d'un objet contenant les données à modifier.
     public static function update(PDO $pdo, $object): int {
         $affected = 0;
         try {
@@ -211,10 +219,8 @@ class ClientDAO {
         }
         return $affected;
 
-        /// update
-    }
+     }
 
-/// class
 }
 
 

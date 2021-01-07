@@ -3,15 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/contact.php</file>
-            <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/shoping-cart.php</file>
-            <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/footer.php</file>
-            <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/shop-details.php</file>
-            <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/header.php</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/connexion.php</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/checkout.php</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/daos/DatabaseTest.php</file>
             <file>file:/C:/xampp/htdocs/Api_Creation/index.php</file>
-            <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/shop-grid.php</file>
-            <file>file:/C:/xampp/htdocs/Api_Creation/css/style.css</file>
-            <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/accueil.php</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/conf/bd_rpi.ini</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/daos/Database.php</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/js/script.js</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/js/ajax.js</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/conf/bd_ad.ini</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/conf/bd.ini</file>
         </group>
     </open-files>
 </project-private>
