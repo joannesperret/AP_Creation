@@ -14,6 +14,9 @@ if(session_id()===""){
 if((session_id()!== "") && ($action === "deconnexion")){
     session_destroy();
 }   
+    // Si les variables de session ne sont pas créées, initialisation des valeurs à 0
+if(isset($_SESSION['Panier'])){}else{$_SESSION['Panier']=0;}
+if(isset($_SESSION['SommePanier'])){}else{$_SESSION['SommePanier']=0;}
 
 
 ?>

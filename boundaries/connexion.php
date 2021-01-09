@@ -71,7 +71,7 @@ connexion.php
                 <div class="checkout__form">
                     <h4>Connectez- vous:</h4>
 					<!-- Formulaire d'inscription -->
-                    <form action="index.php?action=connexion#connexion method=POST">
+                    <form action="index.php?action=connexion#connexion">
                         <div class="row">
                             <div class="col-lg-8 col-md-6" style="margin:0 auto">
                                 <div class="row">

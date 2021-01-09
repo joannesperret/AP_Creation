@@ -171,13 +171,13 @@ IHM inscription et validation du panier-->
                                     <div class="col-lg-6">
                                         <div class="checkout__input">
                                             <p>Mot de passe<span>*</span></p>
-                                            <input type="password" name="passwordInscription" id="password"  value="<?php if (isSet($_SESSION['password'])) echo $_SESSION['password'] ?>" placeholder="Entrez votre mot de passe">
+                                            <input type="password" name="passwordInscription" id="password"  value="<?php //if (isSet($_SESSION['password'])) echo $_SESSION['password'] ?>" placeholder="Entrez votre mot de passe">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="checkout__input">
                                             <p>Confirmez votre mot de passe<span>*</span></p>
-                                            <input type="password" name="passwordInscription2" id="password2" value="<?php if (isSet($_SESSION['password'])) echo $_SESSION['password'] ?>" placeholder="Confirmez votre mot de passe">
+                                            <input type="password" name="passwordInscription2" id="password2" value="<?php // if (isSet($_SESSION['password'])) echo $_SESSION['password'] ?>" placeholder="Confirmez votre mot de passe">
                                         </div>
                                     </div>
                                 </div>
@@ -186,7 +186,7 @@ IHM inscription et validation du panier-->
                                     <label for="diff-acc">
                                         Afficher le mot de passe
 										<!-- checkbox d'affichage/ masquage du mot de passe -->
-                                        <input type="checkbox" id="diff-acc">
+                                        <input type="checkbox" id="diff-acc"> 
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>

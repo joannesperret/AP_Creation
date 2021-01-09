@@ -4,16 +4,16 @@
  * index.php
  */
 
-
+// Si les variables de session ne sont pas créées, initialisation des valeurs à 0
+if(isset($_SESSION['Panier'])){}else{$_SESSION['Panier']=0;}
+if(isset($_SESSION['SommePanier'])){}else{$_SESSION['SommePanier']=0;}
 
 // Démarrage de la session au lancement du script afin de gérer
 // les variables de session 'Panier' et 'SommePanier'.
 
 session_start();
 
-// Si les variables de session ne sont pas créées, initialisation des valeurs à 0
-if(isset($_SESSION['Panier'])){}else{$_SESSION['Panier']=0;}
-if(isset($_SESSION['SommePanier'])){}else{$_SESSION['SommePanier']=0;}
+
 
 // initialisation de la variable id_produit si postée
 $idProduit = filter_input(INPUT_GET, "id_produit");
@@ -246,7 +246,8 @@ if ($emailClient != null && $passwordClient != null) {
 
         $dao = new ClientDAO($pdo);
         // Affectation de la méthode SelectOneByEmailAndPwd afin de valider si le client a un compte
-        $objet = $dao->selectOneByEmailAndPwd($pdo, $client);
+        // Test de contrôle du mot de passe haché
+        $objet = $dao->selectOneByEmail($pdo, $client);
         if ($objet === null) {
             $errorMessageAuthentification = "Identifiants erronés";
             $IHM="connexion";
@@ -547,17 +548,17 @@ if(isSet($idProduit)!==NULL){
         // Panier inexistant
         $cart = $idProduit;
     } else {
-        // La STRING panier ressemble à ça : 1#3#9
+        
         $cart .= "#" . $idProduit;
     }
-    // 2 semaines = 14 jours
-    //setCookie('Panier', $cart, time() + 60 * 60 * 24 * 14);
+    
     $_SESSION['Panier']=$cart;
     };
     
-    // si le Cookie Panier est créé et contient un article
-    // si la session Panier est créée et contient un article
-    // mise à jour de l'affichage panier+ sommePanier
+    // Si les variables de session ne sont pas créées, initialisation des valeurs à 0
+if(isset($_SESSION['Panier'])){}else{$_SESSION['Panier']=0;}
+if(isset($_SESSION['SommePanier'])){}else{$_SESSION['SommePanier']=0;}
+
     if($_SESSION['Panier']!==NULL && $_SESSION['Panier']!==0 && $_SESSION['Panier']!==""){
     // le cookie est transformé en tableau
     //$tCookie=explode('#',$_COOKIE["Panier"]);
@@ -599,10 +600,7 @@ if(isSet($idProduit)!==NULL){
 //        $_SESSION["SommePanier"]+=$sommePanier;
         
    if (isSet($recordProduit)!=NULL) {
-        //$sommePanier=0;
-        // Initialisation du Cookie Panier
-        //$ommePanier = filter_input(INPUT_COOKIE, "SommePanier");
-    //$sommePanier = $_SESSION["SommePanier"];
+       
         if ($_SESSION['Panier'] === 0) {
             // Panier inexistant
             $sommePanier = $recordProduit->getPrix();
@@ -612,9 +610,7 @@ if(isSet($idProduit)!==NULL){
             $sommePanier+= $recordProduit->getPrix();
             $_SESSION["SommePanier"]=$sommePanier;
         }
-
-        //setcookie("SommePanier", $sommePanier,time() + 60 * 60 * 24 * 14);
-       // $_SESSION["SommePanier"]=$sommePanier;
+      
        
     }
 
@@ -626,8 +622,8 @@ if(isSet($idProduit)!==NULL){
 };
 
 // Mise à 0 de la SommePanier si panier vidé
-if($_SESSION['Panier']==0){$_SESSION['SommePanier']=0;};
-if($_SESSION['Panier']==""){$_SESSION['Panier']=0;};
+if(isset($_SESSION['Panier'])==0){$_SESSION['SommePanier']=0;};
+if(isset($_SESSION['Panier'])==""){$_SESSION['Panier']=0;};
 
 
 // Test de modification de l' IHM via le ?action

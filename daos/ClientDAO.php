@@ -122,6 +122,54 @@ class ClientDAO {
         return $object;
     
     }
+    
+        /**
+     * 
+     * @param PDO $pdo
+     * @param Client $pObject
+     * @return \Client
+     */
+	 
+	 // Fonction de selection d'un client par son email pour contrôle du mot de passe
+	 
+    public static function selectOneByEmail(PDO $pdo, $pObject) {
+        $object = null;
+        try {
+            $sql = 'SELECT * FROM client WHERE email_client = ?';
+            $cmd = $pdo->prepare($sql);
+            $cmd->bindValue(1, $pObject->getEmailClient());
+            $cmd->execute();
+            $record = $cmd->fetch(PDO::FETCH_ASSOC);
+            if ($record != null) {                
+                $object = new Client();
+                $object->setIdClient($record['id_client']);
+                $object->setCiviliteClient($record['civilite']);
+                $object->setNomClient($record['nom']);
+                $object->setPrenomClient($record['prenom']);
+                $object->setAdresseClient($record['adresse']);
+                $object->setEmailClient($record['email_client']);                
+                $object->setPwdClient($record['password']);               
+                $object->setTelephoneClient($record['telephone_client']);
+                $object->setDateNaissanceClient($record['date_naissance']);
+                $object->setNewsLetterClient($record['newsletter']);
+                $object->setIdVille($record['id_ville']);
+                if (password_verify($pObject->getPwdClient(), $object->getPwdClient())) {                 
+                } else {
+                    $object = null;
+                    $errorMessageAuthentification="Mot de passe erroné";
+                }
+                
+            } else {              
+                $object = null;
+                $errorMessageAuthentification = 'Adresse mail non trouvée.';
+
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        return $object;
+    
+    }
 
     /**
      * 
