@@ -73,7 +73,7 @@ if(isset($idProduitConsultation)){
 
     $connexion = new Connexion();
     // Selection du fichier .ini pour selection du serveur
-    $pdo = $connexion->connect("conf/bd_rpi.ini");
+    $pdo = $connexion->connect("../conf/bd_ad.ini");
     $dao = new ProduitDAO($pdo);
     $object = $dao->selectProduitById($pdo,$idProduitConsultation);
     // Récupération des valeurs du produit
@@ -130,7 +130,7 @@ try {
 
     $connexion = new Connexion();
     // Selection du fichier .ini pour selection du serveur
-    $pdo = $connexion->connect("conf/bd_rpi.ini");
+    $pdo = $connexion->connect("../conf/bd_ad.ini");
     $dao = new CategorieDAO($pdo);
     $tCategorie = $dao->selectAll($pdo);
     // Inserer boucle sur les categories
@@ -173,7 +173,7 @@ if (isSet($IHM) && ($IHM === "accueil")) {
     $cnx = new Connexion();
 //Selection des paramètres du fichier ini
 
-    $pdo = $cnx->connect("conf/bd_rpi.ini");
+    $pdo = $cnx->connect("../conf/bd_ad.ini");
 
 // TEST BOUCLE SELECT ALL CATEGORIES+ AFFICHAGE DES PHOTOS ASSOCIEES+ PRODUITS ASSOCIES
     $daoCategorie = new CategorieDAO($pdo);
@@ -238,7 +238,7 @@ if ($emailClient != null && $passwordClient != null) {
         $connexion = new Connexion();
 
         // Selection du fichier .ini pour selection du serveur
-        $pdo = $connexion->connect("conf/bd_rpi.ini");
+        $pdo = $connexion->connect("../conf/bd_ad.ini");
 
         $client = new Client();
         $client->setEmailClient($emailClient);
@@ -294,7 +294,7 @@ if ($emailClient != null && $passwordClient != null) {
 
             $connexion = new Connexion();
             // Selection du fichier .ini pour selection du serveur
-            $pdo = $connexion->connect("conf/bd_rpi.ini");
+            $pdo = $connexion->connect("../conf/bd_ad.ini");
             $dao = new VilleDAO($pdo);
             $villeClientConnecte = new Ville();
             $villeClientConnecte->setIdVille($idVSession);
@@ -404,7 +404,7 @@ if (((isset($btValiderInscription)) != null) && ((isset($inscrptionValidation)) 
 
             $connexion = new Connexion();
             // Selection du fichier .ini pour selection du serveur
-            $pdo = $connexion->connect("conf/bd_rpi.ini");
+            $pdo = $connexion->connect("../conf/bd_ad.ini");
             $dao = new VilleDAO($pdo);
             $villeSaisie = new Ville();
             // Récupération du contenu du Select
@@ -434,7 +434,7 @@ if (((isset($btValiderInscription)) != null) && ((isset($inscrptionValidation)) 
                     //connexion
                     $connexion = new Connexion();
                     // Selection du fichier .ini pour selection du serveur
-                    $pdo = $connexion->connect("conf/bd_rpi.ini");
+                    $pdo = $connexion->connect("../conf/bd_ad.ini");
                     $daoClient = new ClientDAO($pdo);
                     $newClient = new Client("", $civiliteInscription, $nomInscription, $prenomInscription, $adresseInscription, $emailInscription, $pwdClientInscription, $telephoneInscription, $dateNaissanceClient, $newsLetterInscription, $idVilleClientInscription);
                     $pdo->beginTransaction();
@@ -494,7 +494,7 @@ if (((isset($btnNewsletter)) != null)) {
         $connexion = new Connexion();
 
 // Selection du fichier .ini pour selection du serveur
-        $pdo = $connexion->connect("conf/bd_rpi.ini");
+        $pdo = $connexion->connect("../conf/bd_ad.ini");
 
         $client = new Client();
         $client->setEmailClient($inscriptionNewsletter);
