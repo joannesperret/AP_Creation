@@ -4,15 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/connexion.php</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/routes/route.php</file>
             <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/checkout.php</file>
-            <file>file:/C:/xampp/htdocs/Api_Creation/daos/DatabaseTest.php</file>
             <file>file:/C:/xampp/htdocs/Api_Creation/index.php</file>
-            <file>file:/C:/xampp/htdocs/Api_Creation/conf/bd_rpi.ini</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/essais/DatabaseTest.php</file>
             <file>file:/C:/xampp/htdocs/Api_Creation/daos/Database.php</file>
             <file>file:/C:/xampp/htdocs/Api_Creation/js/script.js</file>
             <file>file:/C:/xampp/htdocs/Api_Creation/js/ajax.js</file>
-            <file>file:/C:/xampp/htdocs/Api_Creation/conf/bd_ad.ini</file>
-            <file>file:/C:/xampp/htdocs/Api_Creation/conf/bd.ini</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/daos/ConnexionAjax.php</file>
         </group>
     </open-files>
 </project-private>

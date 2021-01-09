@@ -170,7 +170,8 @@ class ClientDAO {
             $cmd->bindValue(4, $object->getPrenomClient());
             $cmd->bindValue(5, $object->getAdresseClient());
             $cmd->bindValue(6, $object->getEmailClient());
-            $cmd->bindValue(7, $object->getPwdClient());
+            // Sécurisation du mot de passe
+            $cmd->bindValue(7, password_hash($object->getPwdClient(), PASSWORD_DEFAULT));
             $cmd->bindValue(8, $object->getTelephoneClient());
             $cmd->bindValue(9, $object->getDateNaissanceClient());
             $cmd->bindValue(10, $object->getNewsLetterClient());
@@ -205,7 +206,8 @@ class ClientDAO {
             $cmd->bindValue(3, $object->getPrenomClient());
             $cmd->bindValue(4, $object->getAdresseClient());
             $cmd->bindValue(5, $object->getEmailClient());
-            $cmd->bindValue(6, $object->getPwdClient());
+            // Sécurisation du mot de passe
+            $cmd->bindValue(6, password_hash($object->getPwdClient(), PASSWORD_DEFAULT));
             $cmd->bindValue(7, $object->getTelephoneClient());
             $cmd->bindValue(8, $object->getDateNaissanceClient());
             $cmd->bindValue(9, $object->getNewsLetterClient());
