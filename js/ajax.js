@@ -3,14 +3,15 @@
  * requête asynchrone permettant de récupérer les noms de villes d'un code postal saisi
  */
 
-    // Execution de la fonction après clic du bouton #btVoir
+       // Execution de la fonction après perte du focus
     // ------------
     function init() {
-        $("#btVoir").click(voir);
+       $("#itCP").blur(afficherVille);
+       
     }
     // fonction ajax de recherche de la ville associée au CP saisi pour alimentation du select
     // ------------
-    function voir() {
+    function chercherVille() {
         $.ajax({
             type: "GET",
 		// la requête est transmise au contrôleur 'VilleDUnCP'
@@ -24,6 +25,12 @@
                 $("#pResultat").html(erreur);
             }
         });
+     
+    }
+    
+    function afficherVille(){
+        // fonction de déclenchement de la requête Ajax si la CP saisi fait 5 caractères
+        if($("#itCP").val().length===5){chercherVille();}
     }
 
     // ---------------------

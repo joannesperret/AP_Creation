@@ -99,42 +99,15 @@ connexion.php
                             </div>
                         </div>
                     </form>
-                    <p>
-					<!-- Div d'affichage des messages après envoi des données via le formulaire -->
+                                        <!-- Paragraphe d'affichage des messages après envoi des données via le formulaire -->
+                    <p>					
                         <label id="message" class="message">
                             <div class="<?php if (isSet($errorMessageAuthentification) != "") echo "alert alert-danger" ?>" role="alert">                                
                                 <p style="text-align: center"><?php if (isSet($errorMessageAuthentification) != "") echo $errorMessageAuthentification ?></p>
                             </div>
                             <div class="<?php if (isSet($messageAuthentification) != "") echo "alert alert-success" ?>" role="alert">                                
                                 <p style="text-align: center"><?php if (isSet($messageAuthentification) != "") echo $messageAuthentification ?></p>                                                         
-                            </div>
-                            <?php
-                            if (isset($message)) {
-                                if ($message === "") {
-                                    $message = "Vous êtes connecté";
-                                }
-                                if ($message === "0") {
-                                    $message = "Vous êtes déconnecté(e) !";
-                                }
-                               
-                            }
-                            ?>
-                        </label>
-                        <label id="lblMessageErreur" class="erreur">
-                            <?php
-                            if (isset($errorMessage)) {
-                                if ($errorMessage === "-1") {
-                                    $errorMessage = "Authentification KO";
-                                }
-                                if ($errorMessage === "0") {
-                                    $errorMessage = "Vous devez être identifié(e) pour accéder à 'Gérer mon compte' !";
-                                }                                
-                            }
-
-                            if (isset($prenomClient)) {
-                                echo $prenomClient->getPrenomclient() . "<br>";
-                            }
-                            ?>
+                            </div>                          
                         </label>
                     </p>
                 </div>

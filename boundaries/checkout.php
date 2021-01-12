@@ -123,16 +123,13 @@ IHM inscription et validation du panier-->
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <div class="checkout__input">
-									
+                                        <div class="checkout__input">									
                                             <p>Sélectionnez votre ville<span>*</span></p>
-                                            <div class="checkout__input" id="pResultat" ><?php if (isSet($_SESSION['ville'])) echo"<input type='text'name='villeInscription' value='" . $_SESSION['ville'] . "'" ?>
+                                            <div class="checkout__input" id="pResultat" >
+                                                <?php if (isSet($_SESSION['ville'])) echo"<input type='text'name='villeInscription' value='" . $_SESSION['ville'] . "'" ?>
 
                                                 <input type="text" placeholder="Ville" disabled="">  
-                                            </div>
-									<!-- Bouton de validation de la requête AJAX permettant de récupérer les villes liées au code postal saisi -->		
-                                            <input id="btVoir" name="btVoir" type="button" value="Afficher les villes">                                        
-
+                                            </div>                                        
                                         </div>
                                     </div>
                                 </div>                       

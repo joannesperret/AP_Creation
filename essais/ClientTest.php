@@ -5,10 +5,11 @@
  */
 
 // Inclusion du DTO 'client'
-require_once 'Client.php';
+require_once '../entities/Client.php';
 
 // Création d'un nouveau client
-$clientTest = new Client(1, "Monsieur", "Perret", "Joannès", "7 Hameau du Malgré Tout", "joannesperret@hotmail.fr", "MdP", "06-52-81-07-98", "1976-03-03", 1, 22728);
+$clientTest = new Client(1, "Monsieur", "Perret", "Joannès", "7 Hameau du Malgré Tout", 
+"joannesperret@hotmail.fr", "MdP", "06-52-81-07-98", "1976-03-03", 1, 22728);
      
 // Affichage du résultat par utilisation des getters
 
