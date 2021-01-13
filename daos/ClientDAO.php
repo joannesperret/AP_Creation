@@ -8,7 +8,7 @@
  */
 
 /* Inclusion du DTO 'client' */
-require_once '../entities/Client.php';
+require_once 'entities/Client.php';
 
 class ClientDAO {
 

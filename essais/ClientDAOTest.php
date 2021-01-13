@@ -4,8 +4,8 @@
  * ClientDAOTest.php
  */
  
-// Inclusion du DAO Database pour assurer la connexion, du DAO ClientDAO comme bibliothèque, du DTO client pour la fonction
-// de création d'un nouveau client et utilisation de ses méthodes.
+// Inclusion du DAO Database pour assurer la connexion, du DAO ClientDAO comme bibliothÃ¨que, du DTO client pour la fonction
+// de crÃ©ation d'un nouveau client et utilisation de ses mÃ©thodes.
 // ClientDAOTest.php
 
 
@@ -19,7 +19,7 @@ echo "</pre><hr>";
 
 //Initialisation de la connexion
 $cnx = new Connexion();
-//Selection des paramètres du fichier ini
+//Selection des paramÃ¨tres du fichier ini
 $pdo = $cnx->connect("../../conf/bd_ad.ini");
 
 // TEST Connexion Database
@@ -33,14 +33,14 @@ echo "<br>Test SelectAll";
 $dao = new ClientDAO($pdo);
 $record = $dao->selectAll($pdo);
 
-// Affichage des résultats. Edition d'une boucle utilisant les getters afin d'afficher tous les arguments
+// Affichage des rÃ©sultats. Edition d'une boucle utilisant les getters afin d'afficher tous les arguments
 // des objets en retour.
 
 echo "<br><br>";
 foreach ($record as $key => $value) {
     echo "Cient: $key<br>";
     echo " Id_client: " . $value->getIdClient();
-    echo " Civilité: " . $value->getCiviliteClient();
+    echo " CivilitÃ©: " . $value->getCiviliteClient();
     echo " Nom: " . $value->getNomClient();
     echo " Prenom: " . $value->getprenomClient();
     echo " Date de naissance: " . $value->getDateNaissanceClient();
@@ -48,56 +48,52 @@ foreach ($record as $key => $value) {
     echo " Password: " . $value->getPwdClient();
     echo " Adresse: " . $value->getAdresseClient();
     echo " Id_ville: " . $value->getIdVille();
-    echo " Téléphone: " . $value->getTelephoneClient();
+    echo " TÃ©lÃ©phone: " . $value->getTelephoneClient();
     echo " NewsLetter: " . $value->getNewsLetterClient() . "<br>";
 }
 echo "<hr>";
 
 // Test INSERT
 echo "<br>Test insert<br><br>";
-// Création d'un nouveau client. Affichage en retour du nombre de lignes affectées.
- $clientPatrick= new Client("", "Monsieur", "Bonnet", "Patrick", "15 place Charles et Albert Roussel", "patrickbonnet@gmail.fr", "Running", "06-27-02-40-30","1970-09-23", 0, 23015);
+// CrÃ©ation d'un nouveau client. Affichage en retour du nombre de lignes affectÃ©es.
+ $clientSandrine= new Client("", "Madame", "Bonnet", "Danae", "15 place Charles et Albert Roussel", "danaebonnet@gmail.fr", "Sport", "06-27-02-10-10","1990-12-22", 0, 23015);
     
- $affectedInsert=$dao->insert($pdo,$clientPatrick);
+ $affectedInsert=$dao->insert($pdo,$clientSandrine);
    
-echo "Insertion réussie? ".$affectedInsert;
+echo "Nombre de lignes modifiÃ©es? ".$affectedInsert;
 echo "<hr>";
    
 
 // Test UPDATE
 echo "<br>Test update<br><br>";
-// Mise à jour d'un client. Affichage en retour du nombre de lignes affectées.
-$clientPatrickModifie = new Client();
-$clientPatrickModifie ->setNewsLetterClient(1);
-
-$affectedUpdate=$dao->update($pdo,$clientPatrickModifie);
+// Mise Ã  jour d'un client. Affichage en retour du nombre de lignes affectÃ©es.
+ $clientPatrickModifie= new Client(127, "Monsieur", "Bonnet", "Patrick", "15 place Charles et Albert Roussel", "patrickbonnet@gmail.fr", "Running", "06-27-02-40-30","1970-09-23", 1, 23015);
+$affectedUpdate = $dao ->update($pdo,$clientPatrickModifie);
    
-echo "Mise à jour réussie? ".$affectedUpdate."<br>";
+echo "Nombre de lignes modifiÃ©es? ".$affectedUpdate."<br>";
 echo "<hr>";  
 // Test DELETE
 echo "<br>Test delete<br><br>";
-// Suppression d'un client. Affichage en retour du nombre de lignes affectées.
+// Suppression d'un client. Affichage en retour du nombre de lignes affectÃ©es.
 $clientPatrickDelete= new Client();
-//$clientPatrickDelete ->setIdClient($idClient);
-    
-$affectedDelete=$dao->delete($pdo,$clientPatrickModifie);
-
-echo "Suppression réussie? ".$affectedDelete."<br>";
+$clientPatrickDelete -> setIdClient(85);
+$affectedDelete = $dao -> delete($pdo,$clientPatrickDelete);
+echo "Nombre de lignes modifiÃ©es? ".$affectedDelete."<br>";
 echo "<hr>";
    
 // Test SelectOne
 echo "<br>Test selectOne<br><br>";
-// Selection d'un client par son Id passé en objet. Affichage en retour des paramètres via les getters
-// Les autres paramètres passés sont optionnels.
+// Selection d'un client par son Id passÃ© en objet. Affichage en retour des paramÃ¨tres via les getters
+// Les autres paramÃ¨tres passÃ©s sont optionnels.
 
 $clientSelectOne = new Client();
-$clientSelectOne ->setIdClient(78);
+$clientSelectOne -> setIdClient(90);
 $clientSelectOneById=$dao->selectOne($pdo,$clientSelectOne);
 
-// Affichage des résultats
+// Affichage des rÃ©sultats
 
 echo " Id_client: ".$clientSelectOneById->getIdClient();
-echo " Civilité: ".$clientSelectOneById->getCiviliteClient();
+echo " CivilitÃ©: ".$clientSelectOneById->getCiviliteClient();
 echo " Nom: ".$clientSelectOneById->getNomClient();
 echo " Prenom: ".$clientSelectOneById->getprenomClient();
 echo " Date de naissance: ".$clientSelectOneById->getDateNaissanceClient();
@@ -105,19 +101,21 @@ echo " Email: ".$clientSelectOneById->getEmailClient();
 echo " Password: ".$clientSelectOneById->getPwdClient();
 echo " Adresse: ".$clientSelectOneById->getAdresseClient();
 echo " Id_ville: ".$clientSelectOneById->getIdVille();
-echo " Téléphone: ".$clientSelectOneById->getTelephoneClient();
+echo " TÃ©lÃ©phone: ".$clientSelectOneById->getTelephoneClient();
 echo " NewsLetter: ".$clientSelectOneById->getNewsLetterClient()."<br>";
 
 echo "<hr>";
 
- // Test SelectOneByEmailAndByPwd
+ // Test SelectOneByEmail
 echo "<br>Test selectOneByEmail<br><br>";
-
-$clientSelectOneByEmail = $dao->selectOneByEmail($pdo, $clientPatrick);
+$client = new Client();
+$client -> setPwdClient("P1l0t@ge");
+$client ->setEmailClient("joannesperret@hotmail.fr");
+$clientSelectOneByEmail = $dao->selectOneByEmail($pdo, $client);
 
 
 echo " Id_client: " . $clientSelectOneByEmail->getIdClient();
-echo " Civilité: " . $clientSelectOneByEmail->getCiviliteClient();
+echo " CivilitÃ©: " . $clientSelectOneByEmail->getCiviliteClient();
 echo " Nom: " . $clientSelectOneByEmail->getNomClient();
 echo " Prenom: " . $clientSelectOneByEmail->getprenomClient();
 echo " Date de naissance: " . $clientSelectOneByEmail->getDateNaissanceClient();
@@ -125,7 +123,7 @@ echo " Email: " . $clientSelectOneByEmail->getEmailClient();
 echo " Password: " . $clientSelectOneByEmail->getPwdClient();
 echo " Adresse: " . $clientSelectOneByEmail->getAdresseClient();
 echo " Id_ville: " . $clientSelectOneByEmail->getIdVille();
-echo " Téléphone: " . $clientSelectOneByEmail->getTelephoneClient();
+echo " TÃ©lÃ©phone: " . $clientSelectOneByEmail->getTelephoneClient();
 echo " NewsLetter: " . $clientSelectOneByEmail->getNewsLetterClient() . "<br>";
 
 echo "<hr>";
