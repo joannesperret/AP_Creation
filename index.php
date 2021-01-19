@@ -16,10 +16,10 @@ session_start();
 
 
 // initialisation de la variable id_produit si postée
-$idProduit = filter_input(INPUT_GET, "id_produit");
+$idProduit = filter_input(INPUT_GET, "id_produit",FILTER_SANITIZE_NUMBER_INT);
 
 // initialisation de la variable id_produit_consultation si posté
-$idProduitConsultation = filter_input(INPUT_GET, "id_produit_consultation");
+$idProduitConsultation = filter_input(INPUT_GET, "id_produit_consultation",FILTER_SANITIZE_NUMBER_INT);
 
 //
 // Gestion des IHM
@@ -44,7 +44,7 @@ $idProduitConsultation=7;
 
 // SUPPRESSION D'UN ARTICLE DU PANIER
 
-$articleASupprimer= filter_input(INPUT_GET, "id_produit_a_enlever");
+$articleASupprimer= filter_input(INPUT_GET, "id_produit_a_enlever",FILTER_SANITIZE_NUMBER_INT);
 
 if($articleASupprimer!==NULL){
         $tCookie=explode('#',$_SESSION["Panier"]); 
@@ -106,7 +106,7 @@ if(isset($idProduitConsultation)){
   
     
 // Récupération de l'action suite clic du lien 
-$action = filter_input(INPUT_GET, "action");
+$action = filter_input(INPUT_GET, "action",FILTER_SANITIZE_STRING);
 
 // si $action = deconnexion, fermeture de la session
 
@@ -219,9 +219,9 @@ if (isSet($IHM) && ($IHM === "accueil")) {
 // GESTION DE L'AUTHENTIFICATION
 //
 // Récupération des données saisies par l'utilisateur depuis la page de connexion
-$emailClient = filter_input(INPUT_GET, "emailConnexion");
-$passwordClient = filter_input(INPUT_GET, "pwdConnexion");
-$btnAuthentification = filter_input(INPUT_GET, "btnValiderAuthentification");
+$emailClient = filter_input(INPUT_GET, "emailConnexion", FILTER_SANITIZE_STRING);
+$passwordClient = filter_input(INPUT_GET, "pwdConnexion", FILTER_SANITIZE_STRING);
+$btnAuthentification = filter_input(INPUT_GET, "btnValiderAuthentification", FILTER_SANITIZE_STRING);
 
 // Si les champs Email et password ont été saisis
 if($btnAuthentification!=NULL){
@@ -364,9 +364,8 @@ if ($emailClient != null && $passwordClient != null) {
 // 
 // CONTROLES A POSITIONNER SUR FORMULAIRE
 
-$inscrptionValidation = filter_input(INPUT_POST, "inscription");
-$btValiderInscription = filter_input(INPUT_POST, "btnValiderCommande");
-
+$inscrptionValidation = filter_input(INPUT_POST, "inscription" ,FILTER_SANITIZE_STRING);
+$btValiderInscription = filter_input(INPUT_POST, "btnValiderCommande" ,FILTER_SANITIZE_STRING);
 
 
 // Si la case Créer un compte a été cochéé et que le bouton Valider a été cliqué
@@ -376,20 +375,20 @@ if (((isset($btValiderInscription)) != null) && ((isset($inscrptionValidation)) 
 
     // Récupération des saisies utiisateurs
 
-    $civiliteInscription = filter_input(INPUT_POST, "civilite");
-    $nomInscription = filter_input(INPUT_POST, "nomInscription");
-    $prenomInscription = filter_input(INPUT_POST, "prenomInscription");
-    $dateNaissanceClient = filter_input(INPUT_POST, "dateNaissanceInscription");
-    $emailInscription = filter_input(INPUT_POST, "emailInscription");
-    $emailInscription2 = filter_input(INPUT_POST, "emailInscription2");
-    $telephoneInscription = filter_input(INPUT_POST, "telephoneInscription");
-    $adresseInscription = filter_input(INPUT_POST, "adresseInscription");
-    $villeInscription = filter_input(INPUT_POST, "villeInscription");
-    $cpInscription = filter_input(INPUT_POST, "cpInscription");
-    $pwdClientInscription = filter_input(INPUT_POST, "passwordInscription");
-    $pwdClient2Inscription = filter_input(INPUT_POST, "passwordInscription2");
-    $newsLetterInscription = filter_input(INPUT_POST, "newsLetterInscription");
-    $paysInscription = filter_input(INPUT_POST, "paysInscription");
+    $civiliteInscription = filter_input(INPUT_POST, "civilite" ,FILTER_SANITIZE_STRING);
+    $nomInscription = filter_input(INPUT_POST, "nomInscription" ,FILTER_SANITIZE_STRING);
+    $prenomInscription = filter_input(INPUT_POST, "prenomInscription" ,FILTER_SANITIZE_STRING);
+    $dateNaissanceClient = filter_input(INPUT_POST, "dateNaissanceInscription" ,FILTER_SANITIZE_STRING);
+    $emailInscription = filter_input(INPUT_POST, "emailInscription" ,FILTER_SANITIZE_STRING);
+    $emailInscription2 = filter_input(INPUT_POST, "emailInscription2" ,FILTER_SANITIZE_STRING);
+    $telephoneInscription = filter_input(INPUT_POST, "telephoneInscription" ,FILTER_SANITIZE_STRING);
+    $adresseInscription = filter_input(INPUT_POST, "adresseInscription" ,FILTER_SANITIZE_STRING);
+    $villeInscription = filter_input(INPUT_POST, "villeInscription" ,FILTER_SANITIZE_STRING);
+    $cpInscription = filter_input(INPUT_POST, "cpInscription" ,FILTER_SANITIZE_STRING);
+    $pwdClientInscription = filter_input(INPUT_POST, "passwordInscription" ,FILTER_SANITIZE_STRING);
+    $pwdClient2Inscription = filter_input(INPUT_POST, "passwordInscription2" ,FILTER_SANITIZE_STRING);
+    $newsLetterInscription = filter_input(INPUT_POST, "newsLetterInscription", FILTER_SANITIZE_STRING);
+    $paysInscription = filter_input(INPUT_POST, "paysInscription",FILTER_SANITIZE_STRING);
     $message;
     $errorMessageInscription;
 
@@ -444,7 +443,7 @@ if (((isset($btValiderInscription)) != null) && ((isset($inscrptionValidation)) 
                 } catch (Exception $ex) {
 
                     $errorMessageInscription = $ex->getMessage();
-                    //$errorMessageInscription = "Utilisateur existant, vous pouvez- vous connecter.";
+                    
                 }
                 if ($affected == 1) {
                     $message = "Merci pour votre inscription.";
@@ -474,12 +473,12 @@ if (((isset($btValiderInscription)) != null) && ((isset($inscrptionValidation)) 
 // GESTION DE L'INSCRIPTION A LA NEWSLETTER
 //
 
-$btnNewsletter = filter_input(INPUT_POST, "btnNewsletter");
+$btnNewsletter = filter_input(INPUT_POST, "btnNewsletter", FILTER_SANITIZE_NUMBER_INT);
 // echo "btnNewsletter:".$btnNewsletter;
     
 if (((isset($btnNewsletter)) != null)) {
 
-    $inscriptionNewsletter = filter_input(INPUT_POST, "mailNewsletter");
+    $inscriptionNewsletter = filter_input(INPUT_POST, "mailNewsletter", FILTER_SANITIZE_STRING);
     $errorMessageNewsletter;
     $messageNewsletter;
 

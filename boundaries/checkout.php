@@ -107,7 +107,7 @@ IHM inscription et validation du panier-->
                                 </div>
                                 <div class="checkout__input">
                                     <p>Date de naissance<span>*</span></p>
-                                    <input type="text" name="dateNaissanceInscription" placeholder="Format: AAAA-MM-JJ" value="<?php if (isSet($_SESSION['naissance'])) echo $_SESSION['naissance'] ?>">
+                                    <input type="date" name="dateNaissanceInscription" placeholder="Format: AAAA-MM-JJ" value="<?php if (isSet($_SESSION['naissance'])) echo $_SESSION['naissance'] ?>">
                                 </div>  
                                 <div class="checkout__input">
                                     <p>Pays<span>*</span></p>
