@@ -54,7 +54,8 @@ class ClientDAO {
         try {
             $sql = 'SELECT * FROM client WHERE id_client = ?';
             $cmd = $pdo->prepare($sql);
-			// Le passage de paramètres en binValue permet d'accroître la sécurité
+			// Le passage de paramètres en binValue permet de se protéger 
+			// de l'injection SQL.
             $cmd->bindValue(1, $pObject->getIdClient());
             $rs = $cmd->execute();
             $record = $cmd->fetch(PDO::FETCH_ASSOC);
@@ -136,6 +137,8 @@ class ClientDAO {
         $object = null;
         try {
             $sql = 'SELECT * FROM client WHERE email_client = ?';
+			// Les requêtes préparées et le passage de paramètres en binValue  
+			// permet de se protéger de l'injection SQL.
             $cmd = $pdo->prepare($sql);
             $cmd->bindValue(1, $pObject->getEmailClient());
             $cmd->execute();

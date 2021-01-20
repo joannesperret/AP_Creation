@@ -4,9 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/Api_Creation/boundaries/checkout.php</file>
-            <file>file:/C:/xampp/htdocs/Api_Creation/essais/ClientDAOTest.php</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/essais/VilleDAOTest.php</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/entities/Ville.php</file>
             <file>file:/C:/xampp/htdocs/Api_Creation/index.php</file>
-            <file>file:/C:/xampp/htdocs/Api_Creation/daos/ClientDAO.php</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/VilleDUnCPObjet.php</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/daos/Database.php</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/js/ajax.js</file>
+            <file>file:/C:/xampp/htdocs/Api_Creation/daos/VilleDAO.php</file>
         </group>
     </open-files>
 </project-private>

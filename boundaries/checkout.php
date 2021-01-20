@@ -123,11 +123,11 @@ IHM inscription et validation du panier-->
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <div class="checkout__input">									
+                                        <div class="checkout__input form-group">									
                                             <p>Sélectionnez votre ville<span>*</span></p>
-                                            <div class="checkout__input" id="pResultat" >
-                                                <?php if (isSet($_SESSION['ville'])) echo"<input type='text'name='villeInscription' value='" . $_SESSION['ville'] . "'" ?>
-
+                                            <div class="form-group checkout__input" id="pResultat">
+                                                <?php if (isSet($_SESSION['ville'])) echo"<input type='text' class='form-control' name='villeInscription' value='" . $_SESSION['ville'] . "'" ?>
+                                                
                                                 <input type="text" placeholder="Ville" disabled="">  
                                             </div>                                        
                                         </div>
@@ -168,13 +168,13 @@ IHM inscription et validation du panier-->
                                     <div class="col-lg-6">
                                         <div class="checkout__input">
                                             <p>Mot de passe<span>*</span></p>
-                                            <input type="password" name="passwordInscription" id="password"  value="<?php //if (isSet($_SESSION['password'])) echo $_SESSION['password'] ?>" placeholder="Entrez votre mot de passe">
+                                            <input type="password" name="passwordInscription" id="password"  value="<?php //if (isSet($_SESSION['password'])) echo $_SESSION['password'] ?>" placeholder="8 caractères minimum">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="checkout__input">
                                             <p>Confirmez votre mot de passe<span>*</span></p>
-                                            <input type="password" name="passwordInscription2" id="password2" value="<?php // if (isSet($_SESSION['password'])) echo $_SESSION['password'] ?>" placeholder="Confirmez votre mot de passe">
+                                            <input type="password" name="passwordInscription2" id="password2" value="<?php // if (isSet($_SESSION['password'])) echo $_SESSION['password'] ?>" placeholder="8 caractères minimum">
                                         </div>
                                     </div>
                                 </div>

@@ -16,10 +16,10 @@ session_start();
 
 
 // initialisation de la variable id_produit si postée
-$idProduit = filter_input(INPUT_GET, "id_produit",FILTER_SANITIZE_NUMBER_INT);
+$idProduit = filter_input(INPUT_GET, "id_produit", FILTER_SANITIZE_NUMBER_INT);
 
 // initialisation de la variable id_produit_consultation si posté
-$idProduitConsultation = filter_input(INPUT_GET, "id_produit_consultation",FILTER_SANITIZE_NUMBER_INT);
+$idProduitConsultation = filter_input(INPUT_GET, "id_produit_consultation", FILTER_SANITIZE_NUMBER_INT);
 
 //
 // Gestion des IHM
@@ -44,7 +44,7 @@ $idProduitConsultation=7;
 
 // SUPPRESSION D'UN ARTICLE DU PANIER
 
-$articleASupprimer= filter_input(INPUT_GET, "id_produit_a_enlever",FILTER_SANITIZE_NUMBER_INT);
+$articleASupprimer= filter_input(INPUT_GET, "id_produit_a_enlever", FILTER_SANITIZE_NUMBER_INT);
 
 if($articleASupprimer!==NULL){
         $tCookie=explode('#',$_SESSION["Panier"]); 
@@ -53,10 +53,6 @@ if($articleASupprimer!==NULL){
         $cart= implode("#", $tCookie);
         $_SESSION['Panier']=$cart;
 };
-
-
-
-
 
 //
 // Visualisation d'un article sur la page shop-details
@@ -106,7 +102,7 @@ if(isset($idProduitConsultation)){
   
     
 // Récupération de l'action suite clic du lien 
-$action = filter_input(INPUT_GET, "action",FILTER_SANITIZE_STRING);
+$action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_STRING);
 
 // si $action = deconnexion, fermeture de la session
 
@@ -245,8 +241,8 @@ if ($emailClient != null && $passwordClient != null) {
         $client->setPwdClient($passwordClient);
 
         $dao = new ClientDAO($pdo);
-        // Affectation de la méthode SelectOneByEmailAndPwd afin de valider si le client a un compte
-        // Test de contrôle du mot de passe haché
+        // Affectation de la méthode SelectOneByEmail afin de valider si le client a un compte
+        
         $objet = $dao->selectOneByEmail($pdo, $client);
         if ($objet === null) {
             $errorMessageAuthentification = "Identifiants erronés";
@@ -360,9 +356,9 @@ if ($emailClient != null && $passwordClient != null) {
 
 
 
+// 
 // GESTION DE L'INSCRIPTION
 // 
-// CONTROLES A POSITIONNER SUR FORMULAIRE
 
 $inscrptionValidation = filter_input(INPUT_POST, "inscription" ,FILTER_SANITIZE_STRING);
 $btValiderInscription = filter_input(INPUT_POST, "btnValiderCommande" ,FILTER_SANITIZE_STRING);
@@ -374,6 +370,8 @@ if (((isset($btValiderInscription)) != null) && ((isset($inscrptionValidation)) 
 
 
     // Récupération des saisies utiisateurs
+    // 
+    // Utilisation du FILTER_SANITIZE_STRING pour éviter le Cross Dock Scripting
 
     $civiliteInscription = filter_input(INPUT_POST, "civilite" ,FILTER_SANITIZE_STRING);
     $nomInscription = filter_input(INPUT_POST, "nomInscription" ,FILTER_SANITIZE_STRING);
@@ -388,7 +386,7 @@ if (((isset($btValiderInscription)) != null) && ((isset($inscrptionValidation)) 
     $pwdClientInscription = filter_input(INPUT_POST, "passwordInscription" ,FILTER_SANITIZE_STRING);
     $pwdClient2Inscription = filter_input(INPUT_POST, "passwordInscription2" ,FILTER_SANITIZE_STRING);
     $newsLetterInscription = filter_input(INPUT_POST, "newsLetterInscription", FILTER_SANITIZE_STRING);
-    $paysInscription = filter_input(INPUT_POST, "paysInscription",FILTER_SANITIZE_STRING);
+    $paysInscription = filter_input(INPUT_POST, "paysInscription",FILTER_SANITIZE_STRING);   
     $message;
     $errorMessageInscription;
 
@@ -406,9 +404,11 @@ if (((isset($btValiderInscription)) != null) && ((isset($inscrptionValidation)) 
             // Selection du fichier .ini pour selection du serveur
             $pdo = $connexion->connect("../conf/bd_ad.ini");
             $dao = new VilleDAO($pdo);
-            $villeSaisie = new Ville();
-            // Récupération du contenu du Select
+	    // Création d'un objet ville reprenant le nom de ville récupéré via requête asynchrone
+	    // lors de la saisie du formulaire par utilisateur
+            $villeSaisie = new Ville();            
             $villeSaisie->setVille($villeInscription);
+	    // Execution du selectOne afin d'hydrater l'objet $villeClient
             $villeClient = $dao->selectOneByVille($pdo, $villeSaisie);
             $nomVilleClientInscription = $villeClient->getVille();
             $idVilleClientInscription = $villeClient->getIdVille();
@@ -420,50 +420,58 @@ if (((isset($btValiderInscription)) != null) && ((isset($inscrptionValidation)) 
                 //$message = "";
             }
         } catch (Exception $exc) {
-            $errorMessage = "-1";
+            $errorMessage = "Erreur de connexion interne au site";
         }
 
-
+		// Inclusion des Entities
         require_once 'entities/Client.php';
         require_once 'daos/ClientDAO.php';
         require_once 'daos/Database.php';
+        
+        // Contrôle de cohérence des données
+        // Obligation de saisir un mot de passe de plus de 8 caractères
+        if (strlen($pwdClientInscription) > 8) {
+            if ($pwdClientInscription === $pwdClient2Inscription) {
+                if ($emailInscription === $emailInscription2) {
+                    try {
+                        //connexion
+                        $connexion = new Connexion();
+                        // Selection du fichier .ini pour selection du serveur
+                        $pdo = $connexion->connect("../conf/bd_ad.ini");
+                        $daoClient = new ClientDAO($pdo);
+                        $newClient = new Client("", $civiliteInscription, $nomInscription, $prenomInscription, $adresseInscription, $emailInscription, $pwdClientInscription, $telephoneInscription, $dateNaissanceClient, $newsLetterInscription, $idVilleClientInscription);
+                        $pdo->beginTransaction();
+                        $affected = $daoClient->insert($pdo, $newClient);
+                        $pdo->commit();
+                    } catch (Exception $ex) {
 
-        if ($pwdClientInscription === $pwdClient2Inscription) {
-            if ($emailInscription === $emailInscription2) {
-                try {
-                    //connexion
-                    $connexion = new Connexion();
-                    // Selection du fichier .ini pour selection du serveur
-                    $pdo = $connexion->connect("../conf/bd_ad.ini");
-                    $daoClient = new ClientDAO($pdo);
-                    $newClient = new Client("", $civiliteInscription, $nomInscription, $prenomInscription, $adresseInscription, $emailInscription, $pwdClientInscription, $telephoneInscription, $dateNaissanceClient, $newsLetterInscription, $idVilleClientInscription);
-                    $pdo->beginTransaction();
-                    $affected = $daoClient->insert($pdo, $newClient);
-                    $pdo->commit();
-                } catch (Exception $ex) {
-
-                    $errorMessageInscription = $ex->getMessage();
+                        $errorMessageInscription = $ex->getMessage();
+                    }
+                    if ($affected == 1) {
+                        $message = "Merci pour votre inscription.";
+                    } else {
+                        $errorMessageInscription = "Utilisateur existant, vous pouvez- vous connecter.";
+                    }
+                } else {
+					// Message d'erreur si la saisie du contrôle d'e-mail est erronnée
+                    $errorMessageInscription = "Les adresses Emails doivent être identiques.";
                     
                 }
-                if ($affected == 1) {
-                    $message = "Merci pour votre inscription.";
-                } else {
-                    $errorMessageInscription = "Utilisateur existant, vous pouvez- vous connecter.";
-                }
             } else {
-                $errorMessageInscription = "Les adresses Emails doivent être identiques.";
-                //echo "Test adresses mails";
+				// Message d'erreur si la saisie de contrôle de mot de passe est erronée
+                $errorMessageInscription = "Les mots de passes doivent être identiques.";
+                
             }
         } else {
-            $errorMessageInscription = "Les mots de passes doivent être identiques.";
-            //echo "Test mdp";
+			// Message d'erreur si le mot de passe est inférieur à 8 caractères
+            $errorMessageInscription = "Le mot de passe doit contenir au moins 8 caractères";
+            
         }
     } else {
-
+		// Message d'erreur si tous les champs n'ont pas été renseignés
         $errorMessageInscription = "Tous les champs sont obligatoires.";
-        //echo "Test champs";
+        
     }
-    
 }
 
 

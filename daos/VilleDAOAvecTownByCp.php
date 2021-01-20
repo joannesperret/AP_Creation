@@ -9,7 +9,8 @@
  *
  * @author joann
  */
-require_once 'entities/Ville.php';
+require 'entities/Ville.php';
+
 
 class VilleDAO {
 
@@ -38,7 +39,7 @@ class VilleDAO {
         
 }
 
-   /*
+    /*
      * @param PDO $pdo
      * @param int $cp
      * @return array
