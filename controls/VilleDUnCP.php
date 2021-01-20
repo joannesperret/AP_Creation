@@ -9,38 +9,40 @@
 // CHEMIN RELATIF DIFFERENT
 // MODE DEGRADE EN PROCEDURAL
 
-
-
     
-    $id = filter_input(INPUT_GET, "id");   
-    $lsContenu="<div class='checkout__input' id=''>";
-    $lsContenu .= "<select name='villeInscription' class='nice-select checkout__input'>"; 
+    $id = filter_input(INPUT_POST, "id" ,FILTER_SANITIZE_NUMBER_INT);   
+    $lsContenu="<div class='checkout__input form-group' id=''>";
+    $lsContenu .= "<select name='villeInscription' class='form-control checkout__input'>"; 
    // $lsContenu = "";
     try {
-        // connexion à changer pour passer en prod sur Always Data
-        $lcn = new PDO("mysql:host=mysql-joannesperret.alwaysdata.net;port=3306;dbname=joannesperret_api", "212504", "P1l0t@ge");        
-        // connexion en localhost
-        // $lcn = new PDO("mysql:host=localhost;dbname=projet", "root", "");
-        $lcn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $lcn->exec("SET NAMES 'UTF8'");
-
-        $lsSQL = "SELECT cp, ville FROM ville WHERE cp = ?";
-        $lrs = $lcn->prepare($lsSQL);
-        $lrs->execute(array($id));
-        
+        // inclusion des daos et entities
+        require_once '../daos/Database.php';
+        require_once '../entities/Client.php';
+        // création d"un nouvel objet de connexion
+        $connexion = new Connexion();
+        // Selection du fichier .ini pour paramétrage
+        $pdo = $connexion->connect("../../conf/bd_ad.ini");
+        // Ajout de la gestion des erreurs        
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->exec("SET NAMES 'UTF8'");
+        // Création de la requête
+        $sql = "SELECT cp, ville FROM ville WHERE cp = ?";
+        $lrs = $pdo->prepare($sql);
+        $lrs->bindValue(1,$id);
+        $lrs->execute();
+        // boucle sur les résultats et alimentation de la liste déroulante
         foreach($lrs as $enr) {
-            $lsContenu .= "<option value='$enr[1]'>$enr[1]</option>";
+            $lsContenu .= "<option class='form-control'value='$enr[1]'>$enr[1]</option>";
         }
         $lsContenu .= "</select>";
         $lsContenu .= "</div>";
         if($lsContenu != "") {
             $lsContenu = substr($lsContenu, 0, -1);
         }
-
         $lcn = null;
     }
     catch(PDOException $e) {
         $lsContenu = $e->getMessage();
-    }  
-    
+    }      
     echo $lsContenu;
+    
