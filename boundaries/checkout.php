@@ -118,18 +118,31 @@ IHM inscription et validation du panier-->
                                     <div class="col-lg-6">
                                         <div class="checkout__input">
                                             <p>Code Postal<span>*</span></p>
-                                            <input id="itCP" name="cpInscription" type="text" value="<?php if (isSet($_SESSION['cp'])) echo $_SESSION['cp'] ?>" size="5" placeholder="Code Postal"/>
-
+                                            <!-- identification du input par un id pour cibler le champs en jQuery -->
+                                            <!-- Intégration des données clients si celui- ci est connecté -->
+                                            <input id="itCP" name="cpInscription" type="text" size="5" placeholder="Code Postal"                                                   
+                                               value="<?php if (isSet($_SESSION['cp'])) {
+                                                       echo $_SESSION['cp']
+                                                       ;} ?>"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="checkout__input form-group">									
                                             <p>Sélectionnez votre ville<span>*</span></p>
+                                            <!-- identification du Div par un id pour cibler le champs en jQuery -->
+                                            <!-- et afficher le résultat de la requête Ajax -->
                                             <div class="form-group checkout__input" id="pResultat">
-                                                <?php if (isSet($_SESSION['ville'])) echo"<input type='text' class='form-control' name='villeInscription' value='" . $_SESSION['ville'] . "'" ?>
+                                                <!-- Intégration des données clients si celui- ci est connecté -->
+                                                <?php if (isSet($_SESSION['ville'])) {
+                                                    echo"<input type='text' class='form-control' name='villeInscription' value='" .
+                                                    $_SESSION['ville'] . "'"
+                                                    ;}  ?>
+                                                <!-- Champs input désactivé afin d'empêcher une saisie -->
+                                                <input type="text" placeholder="Ville" disabled>  
+                                            </div>
+                                            <div class="form-group" id="cpError" role="alert">
                                                 
-                                                <input type="text" placeholder="Ville" disabled="">  
-                                            </div>                                        
+                                            </div>
                                         </div>
                                     </div>
                                 </div>                       

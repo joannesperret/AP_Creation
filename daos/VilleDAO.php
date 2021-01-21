@@ -60,7 +60,7 @@ class VilleDAO {
             }
         } catch (PDOException $error) {
             $object = null;
-            $list[] = $object;
+            $list[] = $error;
         }
         return $list;
         
